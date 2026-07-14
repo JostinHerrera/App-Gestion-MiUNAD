@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of '../../main.dart';
 
 class VirtualClassroomPage extends StatelessWidget {
   const VirtualClassroomPage({super.key});
@@ -167,7 +167,11 @@ class _SubjectCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: const [
-          BoxShadow(color: Color(0x0F000000), blurRadius: 16, offset: Offset(0, 6)),
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 16,
+            offset: Offset(0, 6),
+          ),
         ],
       ),
       child: Column(
@@ -203,7 +207,10 @@ class _SubjectCard extends StatelessWidget {
               ),
               if (isLive)
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFC03A2B),
                     borderRadius: BorderRadius.circular(999),
@@ -211,7 +218,11 @@ class _SubjectCard extends StatelessWidget {
                   child: const Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Icon(Icons.fiber_manual_record, size: 8, color: Colors.white),
+                      Icon(
+                        Icons.fiber_manual_record,
+                        size: 8,
+                        color: Colors.white,
+                      ),
                       SizedBox(width: 6),
                       Text(
                         'En vivo',
@@ -227,7 +238,10 @@ class _SubjectCard extends StatelessWidget {
                 )
               else
                 Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
                   decoration: BoxDecoration(
                     color: const Color(0xFFE8F4EC),
                     borderRadius: BorderRadius.circular(999),
@@ -254,7 +268,11 @@ class _SubjectCard extends StatelessWidget {
             ),
             child: Row(
               children: [
-                const Icon(Icons.calendar_today_outlined, size: 16, color: Color(0xFF62716A)),
+                const Icon(
+                  Icons.calendar_today_outlined,
+                  size: 16,
+                  color: Color(0xFF62716A),
+                ),
                 const SizedBox(width: 8),
                 Text(
                   '$day • $time',
@@ -317,9 +335,9 @@ class _ActionButton extends StatelessWidget {
       child: InkWell(
         onTap: () {
           // In a real app, you would use url_launcher to open the URL
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text('Abriendo $label...')),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text('Abriendo $label...')));
         },
         borderRadius: BorderRadius.circular(12),
         child: Container(

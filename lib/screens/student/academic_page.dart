@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of '../../main.dart';
 
 class AcademicPage extends StatefulWidget {
   const AcademicPage({super.key});
@@ -23,9 +23,7 @@ class _AcademicPageState extends State<AcademicPage> {
     return Column(
       children: [
         // ── Dark green header ─────────────────────────────────────────────
-        _AcademicHeader(
-          onNotificationTap: () {},
-        ),
+        _AcademicHeader(onNotificationTap: () {}),
         // ── Scrollable body ───────────────────────────────────────────────
         Expanded(
           child: ListView(
@@ -153,7 +151,10 @@ class _AcademicHeader extends StatelessWidget {
                 height: 60,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFF4ADE80), width: 2.5),
+                  border: Border.all(
+                    color: const Color(0xFF4ADE80),
+                    width: 2.5,
+                  ),
                   gradient: const LinearGradient(
                     colors: [Color(0xFF1B7A4B), Color(0xFF0E5A38)],
                   ),
@@ -196,7 +197,10 @@ class _AcademicHeader extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 10,
+                        vertical: 4,
+                      ),
                       decoration: BoxDecoration(
                         color: Colors.white.withValues(alpha: 0.15),
                         borderRadius: BorderRadius.circular(999),
@@ -221,7 +225,9 @@ class _AcademicHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white.withValues(alpha: 0.12),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.25),
+                  ),
                 ),
                 child: const Icon(
                   Icons.school_outlined,
@@ -249,7 +255,11 @@ class _AcademicProgressCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: const [
-          BoxShadow(color: Color(0x0F000000), blurRadius: 16, offset: Offset(0, 6)),
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 16,
+            offset: Offset(0, 6),
+          ),
         ],
       ),
       child: Column(
@@ -278,7 +288,9 @@ class _AcademicProgressCard extends StatelessWidget {
                       value: 0.68,
                       strokeWidth: 9,
                       backgroundColor: const Color(0xFFE8F4EC),
-                      valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF0E5A38)),
+                      valueColor: const AlwaysStoppedAnimation<Color>(
+                        Color(0xFF0E5A38),
+                      ),
                       strokeCap: StrokeCap.round,
                     ),
                     const Center(
@@ -396,13 +408,21 @@ class _AcademicQuickGrid extends StatelessWidget {
   final ValueChanged<QuickFeature> onTap;
 
   static const _items = [
-    (QuickFeature.subjectSelection, 'Selección de materias', 'Inscripción y cupos'),
+    (
+      QuickFeature.subjectSelection,
+      'Selección de materias',
+      'Inscripción y cupos',
+    ),
     (QuickFeature.schedule, 'Horario de clases', 'Consulta tu horario'),
     (QuickFeature.academicRecord, 'Record académico', 'Notas e índices'),
     (QuickFeature.pensum, 'Pensum', 'Mapa curricular'),
     (QuickFeature.academicScore, 'Score académico', 'Tu rendimiento'),
     (QuickFeature.news, 'Tareas y proyectos', 'Actividades académicas'),
-    (QuickFeature.academicCalendar, 'Calendario académico', 'Fechas importantes'),
+    (
+      QuickFeature.academicCalendar,
+      'Calendario académico',
+      'Fechas importantes',
+    ),
     (QuickFeature.virtualLibrary, 'Biblioteca virtual', 'Libros y recursos'),
     (QuickFeature.campusVirtual, 'Campus Virtual', 'Plataformas digitales'),
   ];
@@ -463,7 +483,11 @@ class _AcademicQuickCard extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(20),
             boxShadow: const [
-              BoxShadow(color: Color(0x0E000000), blurRadius: 10, offset: Offset(0, 4)),
+              BoxShadow(
+                color: Color(0x0E000000),
+                blurRadius: 10,
+                offset: Offset(0, 4),
+              ),
             ],
             border: Border.all(color: const Color(0xFFF0F4F1), width: 1),
           ),
@@ -479,7 +503,11 @@ class _AcademicQuickCard extends StatelessWidget {
                     color: const Color(0xFFE8F4EC),
                     borderRadius: BorderRadius.circular(14),
                   ),
-                  child: Icon(feature.icon, color: const Color(0xFF0E5A38), size: 22),
+                  child: Icon(
+                    feature.icon,
+                    color: const Color(0xFF0E5A38),
+                    size: 22,
+                  ),
                 ),
               ),
               const Spacer(),
@@ -556,9 +584,13 @@ class _NextTermBanner extends StatelessWidget {
                 ),
                 const SizedBox(height: 14),
                 GestureDetector(
-                  onTap: () => _openFeature(context, QuickFeature.subjectSelection),
+                  onTap: () =>
+                      _openFeature(context, QuickFeature.subjectSelection),
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 10,
+                    ),
                     decoration: BoxDecoration(
                       color: const Color(0xFF4ADE80),
                       borderRadius: BorderRadius.circular(12),
@@ -576,7 +608,11 @@ class _NextTermBanner extends StatelessWidget {
                           ),
                         ),
                         SizedBox(width: 6),
-                        Icon(Icons.arrow_forward_rounded, size: 16, color: Color(0xFF082418)),
+                        Icon(
+                          Icons.arrow_forward_rounded,
+                          size: 16,
+                          color: Color(0xFF082418),
+                        ),
                       ],
                     ),
                   ),
@@ -592,7 +628,11 @@ class _NextTermBanner extends StatelessWidget {
               color: Colors.white.withValues(alpha: 0.10),
               borderRadius: BorderRadius.circular(16),
             ),
-            child: const Icon(Icons.school_rounded, color: Colors.white, size: 32),
+            child: const Icon(
+              Icons.school_rounded,
+              color: Colors.white,
+              size: 32,
+            ),
           ),
         ],
       ),
@@ -622,7 +662,11 @@ class _StudentIdCardButton extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(24),
             boxShadow: const [
-              BoxShadow(color: Color(0x400E5A38), blurRadius: 24, offset: Offset(0, 12)),
+              BoxShadow(
+                color: Color(0x400E5A38),
+                blurRadius: 24,
+                offset: Offset(0, 12),
+              ),
             ],
           ),
           child: Row(
@@ -632,7 +676,10 @@ class _StudentIdCardButton extends StatelessWidget {
                 height: 56,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFF4ADE80), width: 2.5),
+                  border: Border.all(
+                    color: const Color(0xFF4ADE80),
+                    width: 2.5,
+                  ),
                   gradient: const LinearGradient(
                     colors: [Color(0xFF1B7A4B), Color(0xFF0E5A38)],
                   ),
@@ -712,7 +759,11 @@ class _StudentIdCard extends StatelessWidget {
         ),
         borderRadius: BorderRadius.circular(24),
         boxShadow: const [
-          BoxShadow(color: Color(0x400E5A38), blurRadius: 24, offset: Offset(0, 12)),
+          BoxShadow(
+            color: Color(0x400E5A38),
+            blurRadius: 24,
+            offset: Offset(0, 12),
+          ),
         ],
       ),
       child: Column(
@@ -721,11 +772,16 @@ class _StudentIdCard extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 6,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.2)),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.2),
+                  ),
                 ),
                 child: const Text(
                   'Carnet Estudiantil',
@@ -763,7 +819,10 @@ class _StudentIdCard extends StatelessWidget {
                 height: 88,
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
-                  border: Border.all(color: const Color(0xFF4ADE80), width: 2.5),
+                  border: Border.all(
+                    color: const Color(0xFF4ADE80),
+                    width: 2.5,
+                  ),
                   gradient: const LinearGradient(
                     colors: [Color(0xFF1B7A4B), Color(0xFF0E5A38)],
                   ),
@@ -806,7 +865,10 @@ class _StudentIdCard extends StatelessWidget {
                     ),
                     const SizedBox(height: 8),
                     Container(
-                      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 12,
+                        vertical: 5,
+                      ),
                       decoration: BoxDecoration(
                         color: const Color(0xFF4ADE80),
                         borderRadius: BorderRadius.circular(999),
@@ -853,7 +915,10 @@ class _StudentIdCard extends StatelessWidget {
                       Row(
                         children: [
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: const Color(0xFFE8F4EC),
                               borderRadius: BorderRadius.circular(999),
@@ -870,7 +935,10 @@ class _StudentIdCard extends StatelessWidget {
                           ),
                           const SizedBox(width: 8),
                           Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+                            padding: const EdgeInsets.symmetric(
+                              horizontal: 10,
+                              vertical: 4,
+                            ),
                             decoration: BoxDecoration(
                               color: const Color(0xFF4ADE80),
                               borderRadius: BorderRadius.circular(999),
@@ -899,11 +967,16 @@ class _StudentIdCard extends StatelessWidget {
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(16),
                     boxShadow: const [
-                      BoxShadow(color: Color(0x1A000000), blurRadius: 8, offset: Offset(0, 2)),
+                      BoxShadow(
+                        color: Color(0x1A000000),
+                        blurRadius: 8,
+                        offset: Offset(0, 2),
+                      ),
                     ],
                   ),
                   child: QrImageView(
-                    data: '2022-0045|Berny Gómez|Ingeniería en Software|6to Cuatrimestre',
+                    data:
+                        '2022-0045|Berny Gómez|Ingeniería en Software|6to Cuatrimestre',
                     version: QrVersions.auto,
                     size: 100,
                     backgroundColor: Colors.white,

@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of '../../main.dart';
 
 class DashboardPage extends StatefulWidget {
   const DashboardPage({super.key});
@@ -67,7 +67,9 @@ class _VirtualClassroomCard extends StatelessWidget {
       child: InkWell(
         onTap: () {
           Navigator.of(context).push(
-            MaterialPageRoute<void>(builder: (_) => const VirtualClassroomPage()),
+            MaterialPageRoute<void>(
+              builder: (_) => const VirtualClassroomPage(),
+            ),
           );
         },
         borderRadius: BorderRadius.circular(24),
@@ -81,7 +83,11 @@ class _VirtualClassroomCard extends StatelessWidget {
             ),
             borderRadius: BorderRadius.circular(24),
             boxShadow: const [
-              BoxShadow(color: Color(0x400E5A38), blurRadius: 20, offset: Offset(0, 8)),
+              BoxShadow(
+                color: Color(0x400E5A38),
+                blurRadius: 20,
+                offset: Offset(0, 8),
+              ),
             ],
           ),
           child: Row(

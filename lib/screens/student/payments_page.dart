@@ -1,4 +1,4 @@
-part of '../main.dart';
+part of '../../main.dart';
 
 class PaymentsPage extends StatefulWidget {
   const PaymentsPage({super.key});
@@ -33,7 +33,8 @@ class _PaymentsPageState extends State<PaymentsPage> {
                   ),
                   const Spacer(),
                   GestureDetector(
-                    onTap: () => _openFeature(context, QuickFeature.accountStatement),
+                    onTap: () =>
+                        _openFeature(context, QuickFeature.accountStatement),
                     child: const Text(
                       'Ver todos',
                       style: TextStyle(
@@ -138,9 +139,15 @@ class _PaymentsHeader extends StatelessWidget {
                 decoration: BoxDecoration(
                   shape: BoxShape.circle,
                   color: Colors.white.withValues(alpha: 0.12),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.25)),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.25),
+                  ),
                 ),
-                child: const Icon(Icons.account_balance_wallet_outlined, color: Colors.white, size: 26),
+                child: const Icon(
+                  Icons.account_balance_wallet_outlined,
+                  color: Colors.white,
+                  size: 26,
+                ),
               ),
             ],
           ),
@@ -177,7 +184,11 @@ class _PaymentsHeader extends StatelessWidget {
                   color: Colors.white.withValues(alpha: 0.15),
                   borderRadius: BorderRadius.circular(14),
                 ),
-                child: const Icon(Icons.account_balance_wallet_rounded, color: Colors.white, size: 26),
+                child: const Icon(
+                  Icons.account_balance_wallet_rounded,
+                  color: Colors.white,
+                  size: 26,
+                ),
               ),
             ],
           ),
@@ -186,19 +197,26 @@ class _PaymentsHeader extends StatelessWidget {
             children: [
               Expanded(
                 child: GestureDetector(
-                  onTap: () => _openFeature(context, QuickFeature.accountStatement),
+                  onTap: () =>
+                      _openFeature(context, QuickFeature.accountStatement),
                   child: Container(
                     padding: const EdgeInsets.symmetric(vertical: 12),
                     decoration: BoxDecoration(
                       color: Colors.white.withValues(alpha: 0.10),
                       borderRadius: BorderRadius.circular(12),
-                      border: Border.all(color: Colors.white.withValues(alpha: 0.20)),
+                      border: Border.all(
+                        color: Colors.white.withValues(alpha: 0.20),
+                      ),
                     ),
                     alignment: Alignment.center,
                     child: const Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Icon(Icons.description_outlined, color: Colors.white, size: 16),
+                        Icon(
+                          Icons.description_outlined,
+                          color: Colors.white,
+                          size: 16,
+                        ),
                         SizedBox(width: 6),
                         Text(
                           'Ver estado de cuenta',
@@ -250,9 +268,24 @@ class _PaymentCardsRow extends StatelessWidget {
   const _PaymentCardsRow();
 
   static const _cards = [
-    _PayCardData('Matrícula', Icons.school_outlined, 'RD\$ 8,500.00', 'Pendiente'),
-    _PayCardData('Créditos', Icons.payments_outlined, 'RD\$ 3,450.00', 'Pendiente'),
-    _PayCardData('Servicios', Icons.receipt_long_outlined, 'RD\$ 500.00', 'Pendiente'),
+    _PayCardData(
+      'Matrícula',
+      Icons.school_outlined,
+      'RD\$ 8,500.00',
+      'Pendiente',
+    ),
+    _PayCardData(
+      'Créditos',
+      Icons.payments_outlined,
+      'RD\$ 3,450.00',
+      'Pendiente',
+    ),
+    _PayCardData(
+      'Servicios',
+      Icons.receipt_long_outlined,
+      'RD\$ 500.00',
+      'Pendiente',
+    ),
   ];
 
   @override
@@ -266,10 +299,7 @@ class _PaymentCardsRow extends StatelessWidget {
         separatorBuilder: (context, index) => const SizedBox(width: 12),
         itemBuilder: (context, index) {
           final card = _cards[index];
-          return SizedBox(
-            width: 150,
-            child: _PaymentItemCard(data: card),
-          );
+          return SizedBox(width: 150, child: _PaymentItemCard(data: card));
         },
       ),
     );
@@ -297,7 +327,11 @@ class _PaymentItemCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         boxShadow: const [
-          BoxShadow(color: Color(0x0E000000), blurRadius: 10, offset: Offset(0, 4)),
+          BoxShadow(
+            color: Color(0x0E000000),
+            blurRadius: 10,
+            offset: Offset(0, 4),
+          ),
         ],
         border: Border.all(color: const Color(0xFFF0F4F1)),
       ),
@@ -363,16 +397,18 @@ class _PaymentsQuickRow extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: _items
-          .map((item) => Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(right: item == _items.last ? 0 : 10),
-                  child: _PaymentsQuickTile(
-                    feature: item.$1,
-                    label: item.$2,
-                    onTap: () => _openFeature(context, item.$1),
-                  ),
+          .map(
+            (item) => Expanded(
+              child: Padding(
+                padding: EdgeInsets.only(right: item == _items.last ? 0 : 10),
+                child: _PaymentsQuickTile(
+                  feature: item.$1,
+                  label: item.$2,
+                  onTap: () => _openFeature(context, item.$1),
                 ),
-              ))
+              ),
+            ),
+          )
           .toList(),
     );
   }
@@ -402,7 +438,11 @@ class _PaymentsQuickTile extends StatelessWidget {
             color: Colors.white,
             borderRadius: BorderRadius.circular(18),
             boxShadow: const [
-              BoxShadow(color: Color(0x0E000000), blurRadius: 8, offset: Offset(0, 3)),
+              BoxShadow(
+                color: Color(0x0E000000),
+                blurRadius: 8,
+                offset: Offset(0, 3),
+              ),
             ],
             border: Border.all(color: const Color(0xFFF0F4F1)),
           ),
@@ -415,7 +455,11 @@ class _PaymentsQuickTile extends StatelessWidget {
                   color: Color(0xFFE8F4EC),
                   shape: BoxShape.circle,
                 ),
-                child: Icon(feature.icon, color: const Color(0xFF0E5A38), size: 20),
+                child: Icon(
+                  feature.icon,
+                  color: const Color(0xFF0E5A38),
+                  size: 20,
+                ),
               ),
               const SizedBox(height: 8),
               Text(
@@ -449,7 +493,11 @@ class _FinancialSummaryCard extends StatelessWidget {
         color: Colors.white,
         borderRadius: BorderRadius.circular(24),
         boxShadow: const [
-          BoxShadow(color: Color(0x0F000000), blurRadius: 16, offset: Offset(0, 6)),
+          BoxShadow(
+            color: Color(0x0F000000),
+            blurRadius: 16,
+            offset: Offset(0, 6),
+          ),
         ],
       ),
       child: Column(
@@ -505,7 +553,11 @@ class _FinancialSummaryCard extends StatelessWidget {
                     ),
                   ),
                   SizedBox(width: 6),
-                  Icon(Icons.chevron_right_rounded, size: 18, color: Color(0xFF0E5A38)),
+                  Icon(
+                    Icons.chevron_right_rounded,
+                    size: 18,
+                    color: Color(0xFF0E5A38),
+                  ),
                 ],
               ),
             ),

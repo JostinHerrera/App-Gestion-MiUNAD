@@ -1,18 +1,18 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:mi_unad_project/screens/auth/create_account_page.dart';
+import 'package:mi_unad_project/screens/auth/login_page.dart';
+import 'package:mi_unad_project/screens/auth/verify_code_page.dart';
+import 'package:mi_unad_project/theme.dart';
 import 'package:qr_flutter/qr_flutter.dart';
-import 'theme.dart';
-import 'screens/login_page.dart';
-import 'screens/create_account_page.dart';
-import 'screens/verify_code_page.dart';
 
-part 'screens/dashboard_page.dart';
-part 'screens/academic_page.dart';
-part 'screens/payments_page.dart';
-part 'screens/notifications_page.dart';
-part 'screens/profile_page.dart';
-part 'screens/feature_detail_page.dart';
-part 'screens/virtual_classroom_page.dart';
+part 'screens/student/dashboard_page.dart';
+part 'screens/student/academic_page.dart';
+part 'screens/student/payments_page.dart';
+part 'screens/student/notifications_page.dart';
+part 'screens/student/profile_page.dart';
+part 'screens/student/feature_detail_page.dart';
+part 'screens/student/virtual_classroom_page.dart';
 
 void main() {
   runApp(const MiUnadApp());
@@ -188,10 +188,7 @@ class _AppShellState extends State<AppShell> {
           Positioned.fill(
             child: SafeArea(
               bottom: false,
-              child: IndexedStack(
-                index: _index,
-                children: _pages,
-              ),
+              child: IndexedStack(index: _index, children: _pages),
             ),
           ),
         ],
@@ -206,11 +203,31 @@ class _AppShellState extends State<AppShell> {
             elevation: 0,
             onDestinationSelected: (value) => setState(() => _index = value),
             destinations: const [
-              NavigationDestination(icon: Icon(Icons.home_outlined), selectedIcon: Icon(Icons.home), label: 'Inicio'),
-              NavigationDestination(icon: Icon(Icons.menu_book_outlined), selectedIcon: Icon(Icons.menu_book), label: 'Académico'),
-              NavigationDestination(icon: Icon(Icons.payments_outlined), selectedIcon: Icon(Icons.payments), label: 'Pagos'),
-              NavigationDestination(icon: Icon(Icons.notifications_none_outlined), selectedIcon: Icon(Icons.notifications), label: 'Notificaciones'),
-              NavigationDestination(icon: Icon(Icons.person_outline), selectedIcon: Icon(Icons.person), label: 'Perfil'),
+              NavigationDestination(
+                icon: Icon(Icons.home_outlined),
+                selectedIcon: Icon(Icons.home),
+                label: 'Inicio',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.menu_book_outlined),
+                selectedIcon: Icon(Icons.menu_book),
+                label: 'Académico',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.payments_outlined),
+                selectedIcon: Icon(Icons.payments),
+                label: 'Pagos',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.notifications_none_outlined),
+                selectedIcon: Icon(Icons.notifications),
+                label: 'Notificaciones',
+              ),
+              NavigationDestination(
+                icon: Icon(Icons.person_outline),
+                selectedIcon: Icon(Icons.person),
+                label: 'Perfil',
+              ),
             ],
           ),
         ),
@@ -233,10 +250,7 @@ class _DashboardBackground extends StatelessWidget {
           stops: [0.0, 0.55, 1.0],
         ),
       ),
-      child: CustomPaint(
-        painter: _WavesPainter(),
-        size: Size.infinite,
-      ),
+      child: CustomPaint(painter: _WavesPainter(), size: Size.infinite),
     );
   }
 }
@@ -258,7 +272,11 @@ class _WavesPainter extends CustomPainter {
     final path = Path();
     final startY = size.height * yFactor;
     path.moveTo(-size.width * 0.1, startY);
-    for (double x = -size.width * 0.1; x <= size.width * 1.2; x += size.width * 0.23) {
+    for (
+      double x = -size.width * 0.1;
+      x <= size.width * 1.2;
+      x += size.width * 0.23
+    ) {
       path.cubicTo(
         x + size.width * 0.08,
         startY - 24,
@@ -364,7 +382,9 @@ class _PillTabBar extends StatelessWidget {
                 color: isActive ? const Color(0xFF082418) : Colors.transparent,
                 borderRadius: BorderRadius.circular(999),
                 border: Border.all(
-                  color: isActive ? Colors.transparent : const Color(0xFFD4DDD6),
+                  color: isActive
+                      ? Colors.transparent
+                      : const Color(0xFFD4DDD6),
                   width: 1.2,
                 ),
               ),
@@ -423,11 +443,16 @@ class _DarkDashboardCard extends StatelessWidget {
               ),
               const Spacer(),
               Container(
-                padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 5),
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 5,
+                ),
                 decoration: BoxDecoration(
                   color: Colors.white.withValues(alpha: 0.10),
                   borderRadius: BorderRadius.circular(999),
-                  border: Border.all(color: Colors.white.withValues(alpha: 0.15)),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.15),
+                  ),
                 ),
                 child: const Row(
                   mainAxisSize: MainAxisSize.min,
@@ -496,11 +521,26 @@ class _DarkDashboardCard extends StatelessWidget {
           // Action buttons
           Row(
             children: [
-              Expanded(child: _DarkActionButton(label: 'Pagar', icon: Icons.payments_outlined)),
+              Expanded(
+                child: _DarkActionButton(
+                  label: 'Pagar',
+                  icon: Icons.payments_outlined,
+                ),
+              ),
               const SizedBox(width: 10),
-              Expanded(child: _DarkActionButton(label: 'Historial', icon: Icons.receipt_long_outlined)),
+              Expanded(
+                child: _DarkActionButton(
+                  label: 'Historial',
+                  icon: Icons.receipt_long_outlined,
+                ),
+              ),
               const SizedBox(width: 10),
-              Expanded(child: _DarkActionButton(label: 'Perfil', icon: Icons.person_outline_rounded)),
+              Expanded(
+                child: _DarkActionButton(
+                  label: 'Perfil',
+                  icon: Icons.person_outline_rounded,
+                ),
+              ),
             ],
           ),
         ],
@@ -591,10 +631,7 @@ class _DarkActionButton extends StatelessWidget {
 
 // ─── Quick Access Section ─────────────────────────────────────────────────────
 class _QuickAccessSection extends StatelessWidget {
-  const _QuickAccessSection({
-    required this.features,
-    required this.onTap,
-  });
+  const _QuickAccessSection({required this.features, required this.onTap});
 
   final List<QuickFeature> features;
   final ValueChanged<QuickFeature> onTap;
@@ -671,16 +708,26 @@ class _ProfileAvatar extends StatelessWidget {
         padding: const EdgeInsets.all(3),
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          gradient: const LinearGradient(colors: [Color(0xFFF6F2E8), Color(0xFFBFE7C9)]),
+          gradient: const LinearGradient(
+            colors: [Color(0xFFF6F2E8), Color(0xFFBFE7C9)],
+          ),
           boxShadow: const [
-            BoxShadow(color: Color(0x33000000), blurRadius: 16, offset: Offset(0, 8)),
+            BoxShadow(
+              color: Color(0x33000000),
+              blurRadius: 16,
+              offset: Offset(0, 8),
+            ),
           ],
         ),
         child: const CircleAvatar(
           backgroundColor: Color(0xFFF7F3EC),
           child: Text(
             'B',
-            style: TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Color(0xFF0E5A38)),
+            style: TextStyle(
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF0E5A38),
+            ),
           ),
         ),
       ),
@@ -703,25 +750,54 @@ class _StudentSummaryCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   'Resumen del estudiante',
-                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726)),
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF173726),
+                  ),
                 ),
               ),
-              _StatusPill(label: 'Activo', color: Color(0xFF1B7A4B), background: Color(0xFFE7F5EC)),
+              _StatusPill(
+                label: 'Activo',
+                color: Color(0xFF1B7A4B),
+                background: Color(0xFFE7F5EC),
+              ),
             ],
           ),
           const SizedBox(height: 16),
           LayoutBuilder(
             builder: (context, constraints) {
-              final cardWidth = constraints.maxWidth > 640 ? (constraints.maxWidth - 12) / 2 : constraints.maxWidth;
+              final cardWidth = constraints.maxWidth > 640
+                  ? (constraints.maxWidth - 12) / 2
+                  : constraints.maxWidth;
               return Wrap(
                 spacing: 12,
                 runSpacing: 12,
-                children: const [
-                  _MiniStat(label: 'Carrera', value: 'Ing. en Software', icon: Icons.code_outlined),
-                  _MiniStat(label: 'Balance pendiente', value: 'RD\$ 12,450', icon: Icons.payments_outlined),
-                  _MiniStat(label: 'Índice acumulado', value: '3.72', icon: Icons.trending_up_outlined),
-                  _MiniStat(label: 'Cuatrimestre actual', value: '6', icon: Icons.school_outlined),
-                ].map((item) => SizedBox(width: cardWidth, child: item)).toList(),
+                children:
+                    const [
+                          _MiniStat(
+                            label: 'Carrera',
+                            value: 'Ing. en Software',
+                            icon: Icons.code_outlined,
+                          ),
+                          _MiniStat(
+                            label: 'Balance pendiente',
+                            value: 'RD\$ 12,450',
+                            icon: Icons.payments_outlined,
+                          ),
+                          _MiniStat(
+                            label: 'Índice acumulado',
+                            value: '3.72',
+                            icon: Icons.trending_up_outlined,
+                          ),
+                          _MiniStat(
+                            label: 'Cuatrimestre actual',
+                            value: '6',
+                            icon: Icons.school_outlined,
+                          ),
+                        ]
+                        .map((item) => SizedBox(width: cardWidth, child: item))
+                        .toList(),
               );
             },
           ),
@@ -744,10 +820,10 @@ class _FeatureGrid extends StatelessWidget {
         final crossAxisCount = constraints.maxWidth >= 1100
             ? 5
             : constraints.maxWidth >= 900
-                ? 4
-                : constraints.maxWidth >= 640
-                    ? 3
-                    : 2;
+            ? 4
+            : constraints.maxWidth >= 640
+            ? 3
+            : 2;
 
         return GridView.builder(
           shrinkWrap: true,
@@ -788,7 +864,11 @@ class _FeatureCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(22),
             color: Colors.white,
             boxShadow: const [
-              BoxShadow(color: Color(0x10000000), blurRadius: 12, offset: Offset(0, 4)),
+              BoxShadow(
+                color: Color(0x10000000),
+                blurRadius: 12,
+                offset: Offset(0, 4),
+              ),
             ],
             border: Border.all(color: const Color(0xFFF0F4F1), width: 1.2),
           ),
@@ -825,11 +905,7 @@ class _FeatureCard extends StatelessWidget {
               // Status badge replacing subtitle
               Row(
                 children: [
-                  Icon(
-                    badge.$3,
-                    size: 11,
-                    color: badge.$2,
-                  ),
+                  Icon(badge.$3, size: 11, color: badge.$2),
                   const SizedBox(width: 4),
                   Flexible(
                     child: Text(
@@ -858,35 +934,87 @@ class _FeatureCard extends StatelessWidget {
 (String, Color, IconData) _featureBadge(QuickFeature feature) {
   switch (feature) {
     case QuickFeature.tuition:
-      return ('Pendiente', const Color(0xFFD97706), Icons.warning_amber_rounded);
+      return (
+        'Pendiente',
+        const Color(0xFFD97706),
+        Icons.warning_amber_rounded,
+      );
     case QuickFeature.credits:
-      return ('Pendiente', const Color(0xFFD97706), Icons.warning_amber_rounded);
+      return (
+        'Pendiente',
+        const Color(0xFFD97706),
+        Icons.warning_amber_rounded,
+      );
     case QuickFeature.balance:
-      return ('Pendiente', const Color(0xFFD97706), Icons.warning_amber_rounded);
+      return (
+        'Pendiente',
+        const Color(0xFFD97706),
+        Icons.warning_amber_rounded,
+      );
     case QuickFeature.services:
-      return ('Al día', const Color(0xFF1B7A4B), Icons.check_circle_outline_rounded);
+      return (
+        'Al día',
+        const Color(0xFF1B7A4B),
+        Icons.check_circle_outline_rounded,
+      );
     case QuickFeature.accountStatement:
-      return ('Ver movimientos', const Color(0xFF62716A), Icons.arrow_forward_ios_rounded);
+      return (
+        'Ver movimientos',
+        const Color(0xFF62716A),
+        Icons.arrow_forward_ios_rounded,
+      );
     case QuickFeature.subjectSelection:
-      return ('Al día', const Color(0xFF1B7A4B), Icons.check_circle_outline_rounded);
+      return (
+        'Al día',
+        const Color(0xFF1B7A4B),
+        Icons.check_circle_outline_rounded,
+      );
     case QuickFeature.schedule:
-      return ('3 clases hoy', const Color(0xFF1B7A4B), Icons.check_circle_outline_rounded);
+      return (
+        '3 clases hoy',
+        const Color(0xFF1B7A4B),
+        Icons.check_circle_outline_rounded,
+      );
     case QuickFeature.academicRecord:
-      return ('3.72 / 4.00', const Color(0xFF0E5A38), Icons.trending_up_rounded);
+      return (
+        '3.72 / 4.00',
+        const Color(0xFF0E5A38),
+        Icons.trending_up_rounded,
+      );
     case QuickFeature.academicScore:
       return ('82% avance', const Color(0xFF0E5A38), Icons.trending_up_rounded);
     case QuickFeature.pensum:
-      return ('68% completo', const Color(0xFF0E5A38), Icons.trending_up_rounded);
+      return (
+        '68% completo',
+        const Color(0xFF0E5A38),
+        Icons.trending_up_rounded,
+      );
     case QuickFeature.news:
       return ('2 nuevas', const Color(0xFF62716A), Icons.fiber_new_rounded);
     case QuickFeature.academicCalendar:
-      return ('Inscripción: 1 ago', const Color(0xFF62716A), Icons.calendar_today_outlined);
+      return (
+        'Inscripción: 1 ago',
+        const Color(0xFF62716A),
+        Icons.calendar_today_outlined,
+      );
     case QuickFeature.virtualLibrary:
-      return ('Disponible', const Color(0xFF1B7A4B), Icons.check_circle_outline_rounded);
+      return (
+        'Disponible',
+        const Color(0xFF1B7A4B),
+        Icons.check_circle_outline_rounded,
+      );
     case QuickFeature.campusVirtual:
-      return ('4 plataformas', const Color(0xFF62716A), Icons.arrow_forward_ios_rounded);
+      return (
+        '4 plataformas',
+        const Color(0xFF62716A),
+        Icons.arrow_forward_ios_rounded,
+      );
     case QuickFeature.support:
-      return ('En línea', const Color(0xFF1B7A4B), Icons.check_circle_outline_rounded);
+      return (
+        'En línea',
+        const Color(0xFF1B7A4B),
+        Icons.check_circle_outline_rounded,
+      );
   }
 }
 
@@ -926,7 +1054,10 @@ String _featureSubtitle(QuickFeature feature) {
 }
 
 class _GlassCard extends StatelessWidget {
-  const _GlassCard({required this.child, this.padding = const EdgeInsets.all(16)});
+  const _GlassCard({
+    required this.child,
+    this.padding = const EdgeInsets.all(16),
+  });
 
   final Widget child;
   final EdgeInsetsGeometry padding;
@@ -943,9 +1074,16 @@ class _GlassCard extends StatelessWidget {
             borderRadius: BorderRadius.circular(24),
             color: Colors.white.withValues(alpha: 0.65),
             boxShadow: const [
-              BoxShadow(color: Color(0x1A000000), blurRadius: 24, offset: Offset(0, 12)),
+              BoxShadow(
+                color: Color(0x1A000000),
+                blurRadius: 24,
+                offset: Offset(0, 12),
+              ),
             ],
-            border: Border.all(color: Colors.white.withValues(alpha: 0.45), width: 1.2),
+            border: Border.all(
+              color: Colors.white.withValues(alpha: 0.45),
+              width: 1.2,
+            ),
           ),
           child: child,
         ),
@@ -966,7 +1104,11 @@ class SectionTitle extends StatelessWidget {
       children: [
         Text(
           title,
-          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726)),
+          style: const TextStyle(
+            fontSize: 18,
+            fontWeight: FontWeight.w800,
+            color: Color(0xFF173726),
+          ),
         ),
         const Spacer(),
         ?trailing,
@@ -976,7 +1118,11 @@ class SectionTitle extends StatelessWidget {
 }
 
 class _MiniStat extends StatelessWidget {
-  const _MiniStat({required this.label, required this.value, required this.icon});
+  const _MiniStat({
+    required this.label,
+    required this.value,
+    required this.icon,
+  });
 
   final String label;
   final String value;
@@ -1000,9 +1146,22 @@ class _MiniStat extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(label, style: const TextStyle(fontSize: 12, color: Color(0xFF62716A))),
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF62716A),
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(value, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFF173726))),
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF173726),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1013,7 +1172,11 @@ class _MiniStat extends StatelessWidget {
 }
 
 class _StatusPill extends StatelessWidget {
-  const _StatusPill({required this.label, required this.color, required this.background});
+  const _StatusPill({
+    required this.label,
+    required this.color,
+    required this.background,
+  });
 
   final String label;
   final Color color;
@@ -1023,8 +1186,18 @@ class _StatusPill extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
-      decoration: BoxDecoration(color: background, borderRadius: BorderRadius.circular(999)),
-      child: Text(label, style: TextStyle(color: color, fontSize: 12, fontWeight: FontWeight.w700)),
+      decoration: BoxDecoration(
+        color: background,
+        borderRadius: BorderRadius.circular(999),
+      ),
+      child: Text(
+        label,
+        style: TextStyle(
+          color: color,
+          fontSize: 12,
+          fontWeight: FontWeight.w700,
+        ),
+      ),
     );
   }
 }
@@ -1040,16 +1213,41 @@ class _BalanceOverviewCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Expanded(child: Text('Balance actual', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726)))),
-              _StatusPill(label: 'Al día', color: const Color(0xFF1B7A4B), background: const Color(0xFFE7F5EC)),
+              const Expanded(
+                child: Text(
+                  'Balance actual',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF173726),
+                  ),
+                ),
+              ),
+              _StatusPill(
+                label: 'Al día',
+                color: const Color(0xFF1B7A4B),
+                background: const Color(0xFFE7F5EC),
+              ),
             ],
           ),
           const SizedBox(height: 10),
-          const Text('RD\$ 0.00', style: TextStyle(fontSize: 34, fontWeight: FontWeight.w900, color: Color(0xFF0E5A38))),
+          const Text(
+            'RD\$ 0.00',
+            style: TextStyle(
+              fontSize: 34,
+              fontWeight: FontWeight.w900,
+              color: Color(0xFF0E5A38),
+            ),
+          ),
           const SizedBox(height: 10),
-          const SimpleLineChart(values: [0.2, 0.22, 0.19, 0.3, 0.28, 0.24, 0.12]),
+          const SimpleLineChart(
+            values: [0.2, 0.22, 0.19, 0.3, 0.28, 0.24, 0.12],
+          ),
           const SizedBox(height: 10),
-          const Text('Historial de pagos de los últimos 6 períodos.', style: TextStyle(fontSize: 12, color: Color(0xFF62716A))),
+          const Text(
+            'Historial de pagos de los últimos 6 períodos.',
+            style: TextStyle(fontSize: 12, color: Color(0xFF62716A)),
+          ),
         ],
       ),
     );
@@ -1065,7 +1263,8 @@ class _NewsRail extends StatelessWidget {
       children: [
         _NewsCard(
           title: 'Nueva convocatoria de becas',
-          description: 'Abierta la solicitud para estudiantes de alto rendimiento con balance al día.',
+          description:
+              'Abierta la solicitud para estudiantes de alto rendimiento con balance al día.',
           category: 'Académico',
           date: 'Hoy',
           accent: Color(0xFF0E5A38),
@@ -1073,7 +1272,8 @@ class _NewsRail extends StatelessWidget {
         SizedBox(height: 12),
         _NewsCard(
           title: 'Calendario de exámenes publicado',
-          description: 'Consulta fechas por cuatrimestre y recordatorios del próximo período.',
+          description:
+              'Consulta fechas por cuatrimestre y recordatorios del próximo período.',
           category: 'Eventos',
           date: 'Ayer',
           accent: Color(0xFF4D6B2F),
@@ -1084,7 +1284,13 @@ class _NewsRail extends StatelessWidget {
 }
 
 class _NewsCard extends StatelessWidget {
-  const _NewsCard({required this.title, required this.description, required this.category, required this.date, required this.accent});
+  const _NewsCard({
+    required this.title,
+    required this.description,
+    required this.category,
+    required this.date,
+    required this.accent,
+  });
 
   final String title;
   final String description;
@@ -1103,9 +1309,18 @@ class _NewsCard extends StatelessWidget {
             height: 92,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(18),
-              gradient: LinearGradient(colors: [accent.withValues(alpha: 0.9), accent.withValues(alpha: 0.55)]),
+              gradient: LinearGradient(
+                colors: [
+                  accent.withValues(alpha: 0.9),
+                  accent.withValues(alpha: 0.55),
+                ],
+              ),
             ),
-            child: const Icon(Icons.article_outlined, color: Colors.white, size: 36),
+            child: const Icon(
+              Icons.article_outlined,
+              color: Colors.white,
+              size: 36,
+            ),
           ),
           const SizedBox(width: 14),
           Expanded(
@@ -1114,15 +1329,39 @@ class _NewsCard extends StatelessWidget {
               children: [
                 Row(
                   children: [
-                    _StatusPill(label: 'News', color: Colors.white, background: Colors.transparent),
+                    _StatusPill(
+                      label: 'News',
+                      color: Colors.white,
+                      background: Colors.transparent,
+                    ),
                     const Spacer(),
-                    Text(date, style: const TextStyle(fontSize: 12, color: Color(0xFF62716A))),
+                    Text(
+                      date,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF62716A),
+                      ),
+                    ),
                   ],
                 ),
                 const SizedBox(height: 8),
-                Text(title, style: const TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 16,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF173726),
+                  ),
+                ),
                 const SizedBox(height: 6),
-                Text(description, style: const TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.3)),
+                Text(
+                  description,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF62716A),
+                    height: 1.3,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1141,11 +1380,30 @@ class _AcademicCalendarCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Calendario académico', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Calendario académico',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
-          _TimelineItem(title: 'Inscripción', subtitle: '1 - 5 de agosto', color: Color(0xFF0E5A38)),
-          _TimelineItem(title: 'Retiros', subtitle: '10 - 12 de agosto', color: Color(0xFF4D6B2F)),
-          _TimelineItem(title: 'Exámenes finales', subtitle: '28 - 31 de agosto', color: Color(0xFF164D64)),
+          _TimelineItem(
+            title: 'Inscripción',
+            subtitle: '1 - 5 de agosto',
+            color: Color(0xFF0E5A38),
+          ),
+          _TimelineItem(
+            title: 'Retiros',
+            subtitle: '10 - 12 de agosto',
+            color: Color(0xFF4D6B2F),
+          ),
+          _TimelineItem(
+            title: 'Exámenes finales',
+            subtitle: '28 - 31 de agosto',
+            color: Color(0xFF164D64),
+          ),
         ],
       ),
     );
@@ -1153,7 +1411,11 @@ class _AcademicCalendarCard extends StatelessWidget {
 }
 
 class _TimelineItem extends StatelessWidget {
-  const _TimelineItem({required this.title, required this.subtitle, required this.color});
+  const _TimelineItem({
+    required this.title,
+    required this.subtitle,
+    required this.color,
+  });
 
   final String title;
   final String subtitle;
@@ -1165,15 +1427,31 @@ class _TimelineItem extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 12),
       child: Row(
         children: [
-          Container(width: 12, height: 12, decoration: BoxDecoration(color: color, shape: BoxShape.circle)),
+          Container(
+            width: 12,
+            height: 12,
+            decoration: BoxDecoration(color: color, shape: BoxShape.circle),
+          ),
           const SizedBox(width: 12),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF173726))),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF173726),
+                  ),
+                ),
                 const SizedBox(height: 2),
-                Text(subtitle, style: const TextStyle(fontSize: 12, color: Color(0xFF62716A))),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    color: Color(0xFF62716A),
+                  ),
+                ),
               ],
             ),
           ),
@@ -1214,15 +1492,28 @@ class _CampusCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Campus Virtual', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Campus Virtual',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              _ActionPill(label: 'Google Classroom', icon: Icons.class_outlined),
+              _ActionPill(
+                label: 'Google Classroom',
+                icon: Icons.class_outlined,
+              ),
               _ActionPill(label: 'Moodle', icon: Icons.school_outlined),
-              _ActionPill(label: 'Microsoft Teams', icon: Icons.groups_outlined),
+              _ActionPill(
+                label: 'Microsoft Teams',
+                icon: Icons.groups_outlined,
+              ),
               _ActionPill(label: 'Zoom', icon: Icons.videocam_outlined),
             ],
           ),
@@ -1241,11 +1532,22 @@ class _SupportCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Soporte', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Soporte',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 10),
           Text(
             'Chat en tiempo real con Registro, Caja, Finanzas, Tecnología, Coordinación académica y Biblioteca.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.35),
+            style: TextStyle(
+              fontSize: 13,
+              color: Color(0xFF62716A),
+              height: 1.35,
+            ),
           ),
           SizedBox(height: 12),
           _ActionPill(label: 'Abrir chat', icon: Icons.headset_mic_outlined),
@@ -1256,7 +1558,11 @@ class _SupportCard extends StatelessWidget {
 }
 
 class _SectionHero extends StatelessWidget {
-  const _SectionHero({required this.title, required this.subtitle, required this.icon});
+  const _SectionHero({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+  });
 
   final String title;
   final String subtitle;
@@ -1273,7 +1579,9 @@ class _SectionHero extends StatelessWidget {
             height: 64,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              gradient: const LinearGradient(colors: [Color(0xFF0E5A38), Color(0xFF3A7A45)]),
+              gradient: const LinearGradient(
+                colors: [Color(0xFF0E5A38), Color(0xFF3A7A45)],
+              ),
             ),
             child: Icon(icon, color: Colors.white, size: 30),
           ),
@@ -1282,9 +1590,23 @@ class _SectionHero extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontSize: 22, fontWeight: FontWeight.w900, color: Color(0xFF173726))),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFF173726),
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.35)),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF62716A),
+                    height: 1.35,
+                  ),
+                ),
               ],
             ),
           ),
@@ -1307,8 +1629,8 @@ class _ActionMatrix extends StatelessWidget {
         final crossAxisCount = constraints.maxWidth >= 1000
             ? 3
             : constraints.maxWidth >= 640
-                ? 2
-                : 1;
+            ? 2
+            : 1;
         return GridView.builder(
           shrinkWrap: true,
           physics: const NeverScrollableScrollPhysics(),
@@ -1356,9 +1678,27 @@ class _ActionTile extends StatelessWidget {
                 child: Icon(feature.icon, color: feature.color, size: 24),
               ),
               const Spacer(),
-              Text(feature.title, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Color(0xFF182A21)), maxLines: 2, overflow: TextOverflow.ellipsis),
+              Text(
+                feature.title,
+                style: const TextStyle(
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF182A21),
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
               const SizedBox(height: 4),
-              Text(_featureSubtitle(feature), style: const TextStyle(fontSize: 12, color: Color(0xFF61716A), height: 1.2), maxLines: 2, overflow: TextOverflow.ellipsis),
+              Text(
+                _featureSubtitle(feature),
+                style: const TextStyle(
+                  fontSize: 12,
+                  color: Color(0xFF61716A),
+                  height: 1.2,
+                ),
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
             ],
           ),
         ),
@@ -1379,12 +1719,14 @@ class _AcademicBlocks extends StatelessWidget {
           child: Row(
             children: [
               Expanded(
-                child: SimpleCircularProgress(value: 0.82, label: 'Índice General', subtitle: '3.72 / 4.00'),
+                child: SimpleCircularProgress(
+                  value: 0.82,
+                  label: 'Índice General',
+                  subtitle: '3.72 / 4.00',
+                ),
               ),
               SizedBox(width: 16),
-              Expanded(
-                child: _ScoreStats(),
-              ),
+              Expanded(child: _ScoreStats()),
             ],
           ),
         ),
@@ -1432,7 +1774,14 @@ class _WideBlockCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           const SizedBox(height: 12),
           child,
         ],
@@ -1448,7 +1797,11 @@ class _ScoreStats extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        _MiniBar(label: 'Índice del cuatrimestre', value: '3.85', progress: 0.92),
+        _MiniBar(
+          label: 'Índice del cuatrimestre',
+          value: '3.85',
+          progress: 0.92,
+        ),
         SizedBox(height: 10),
         _MiniBar(label: 'Créditos aprobados', value: '72 / 90', progress: 0.8),
         SizedBox(height: 10),
@@ -1459,7 +1812,11 @@ class _ScoreStats extends StatelessWidget {
 }
 
 class _MiniBar extends StatelessWidget {
-  const _MiniBar({required this.label, required this.value, required this.progress});
+  const _MiniBar({
+    required this.label,
+    required this.value,
+    required this.progress,
+  });
 
   final String label;
   final String value;
@@ -1472,8 +1829,19 @@ class _MiniBar extends StatelessWidget {
       children: [
         Row(
           children: [
-            Expanded(child: Text(label, style: const TextStyle(color: Color(0xFF62716A), fontSize: 12))),
-            Text(value, style: const TextStyle(fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+            Expanded(
+              child: Text(
+                label,
+                style: const TextStyle(color: Color(0xFF62716A), fontSize: 12),
+              ),
+            ),
+            Text(
+              value,
+              style: const TextStyle(
+                fontWeight: FontWeight.w800,
+                color: Color(0xFF173726),
+              ),
+            ),
           ],
         ),
         const SizedBox(height: 6),
@@ -1509,8 +1877,21 @@ class _PensumCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Expanded(child: Text('Consultar Pensum', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726)))),
-              _StatusPill(label: '68% completado', color: const Color(0xFF1B7A4B), background: const Color(0xFFE7F5EC)),
+              const Expanded(
+                child: Text(
+                  'Consultar Pensum',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF173726),
+                  ),
+                ),
+              ),
+              _StatusPill(
+                label: '68% completado',
+                color: const Color(0xFF1B7A4B),
+                background: const Color(0xFFE7F5EC),
+              ),
             ],
           ),
           const SizedBox(height: 12),
@@ -1572,8 +1953,18 @@ class _PensumGrid extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text(entry.$1, style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF173726))),
-              _StatusPill(label: entry.$2, color: entry.$3, background: entry.$3.withValues(alpha: 0.12)),
+              Text(
+                entry.$1,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF173726),
+                ),
+              ),
+              _StatusPill(
+                label: entry.$2,
+                color: entry.$3,
+                background: entry.$3.withValues(alpha: 0.12),
+              ),
             ],
           ),
         );
@@ -1591,13 +1982,38 @@ class _ScheduleCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Horario semanal', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Horario semanal',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _WeekStrip(),
           SizedBox(height: 12),
-          _ScheduleTile(day: 'Lun', subject: 'Programación II', time: '8:00 - 9:40', room: 'Lab 204', color: Color(0xFF0E5A38)),
-          _ScheduleTile(day: 'Mié', subject: 'Sistemas Operativos', time: '10:00 - 11:40', room: 'Lab 108', color: Color(0xFF2458A6)),
-          _ScheduleTile(day: 'Vie', subject: 'Ingeniería de Software', time: '1:00 - 2:40', room: 'Aula 312', color: Color(0xFF4D6B2F)),
+          _ScheduleTile(
+            day: 'Lun',
+            subject: 'Programación II',
+            time: '8:00 - 9:40',
+            room: 'Lab 204',
+            color: Color(0xFF0E5A38),
+          ),
+          _ScheduleTile(
+            day: 'Mié',
+            subject: 'Sistemas Operativos',
+            time: '10:00 - 11:40',
+            room: 'Lab 108',
+            color: Color(0xFF2458A6),
+          ),
+          _ScheduleTile(
+            day: 'Vie',
+            subject: 'Ingeniería de Software',
+            time: '1:00 - 2:40',
+            room: 'Aula 312',
+            color: Color(0xFF4D6B2F),
+          ),
         ],
       ),
     );
@@ -1642,7 +2058,10 @@ class _DayChip extends StatelessWidget {
           alignment: Alignment.center,
           child: Text(
             label,
-            style: TextStyle(color: selected ? Colors.white : const Color(0xFF173726), fontWeight: FontWeight.w800),
+            style: TextStyle(
+              color: selected ? Colors.white : const Color(0xFF173726),
+              fontWeight: FontWeight.w800,
+            ),
           ),
         ),
       ),
@@ -1651,7 +2070,13 @@ class _DayChip extends StatelessWidget {
 }
 
 class _ScheduleTile extends StatelessWidget {
-  const _ScheduleTile({required this.day, required this.subject, required this.time, required this.room, required this.color});
+  const _ScheduleTile({
+    required this.day,
+    required this.subject,
+    required this.time,
+    required this.room,
+    required this.color,
+  });
 
   final String day;
   final String subject;
@@ -1675,18 +2100,36 @@ class _ScheduleTile extends StatelessWidget {
             Container(
               width: 42,
               height: 42,
-              decoration: BoxDecoration(color: color.withValues(alpha: 0.12), shape: BoxShape.circle),
+              decoration: BoxDecoration(
+                color: color.withValues(alpha: 0.12),
+                shape: BoxShape.circle,
+              ),
               alignment: Alignment.center,
-              child: Text(day, style: TextStyle(color: color, fontWeight: FontWeight.w800)),
+              child: Text(
+                day,
+                style: TextStyle(color: color, fontWeight: FontWeight.w800),
+              ),
             ),
             const SizedBox(width: 12),
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(subject, style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF173726))),
+                  Text(
+                    subject,
+                    style: const TextStyle(
+                      fontWeight: FontWeight.w700,
+                      color: Color(0xFF173726),
+                    ),
+                  ),
                   const SizedBox(height: 3),
-                  Text('$time · $room', style: const TextStyle(fontSize: 12, color: Color(0xFF62716A))),
+                  Text(
+                    '$time · $room',
+                    style: const TextStyle(
+                      fontSize: 12,
+                      color: Color(0xFF62716A),
+                    ),
+                  ),
                 ],
               ),
             ),
@@ -1706,7 +2149,14 @@ class _RecordsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Record académico', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Record académico',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _TableHeader(columns: ['Materia', 'Créditos', 'Calif.', 'Período']),
           _TableRowItem(values: ['Programación I', '3', 'A', '2026-1']),
@@ -1727,12 +2177,22 @@ class _TableHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 12),
-      decoration: BoxDecoration(color: const Color(0xFFEAF2EC), borderRadius: BorderRadius.circular(14)),
+      decoration: BoxDecoration(
+        color: const Color(0xFFEAF2EC),
+        borderRadius: BorderRadius.circular(14),
+      ),
       child: Row(
         children: columns
             .map(
               (column) => Expanded(
-                child: Text(column, style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Color(0xFF173726))),
+                child: Text(
+                  column,
+                  style: const TextStyle(
+                    fontSize: 12,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF173726),
+                  ),
+                ),
               ),
             )
             .toList(),
@@ -1750,12 +2210,20 @@ class _TableRowItem extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 12),
-      decoration: const BoxDecoration(border: Border(bottom: BorderSide(color: Color(0xFFE8EEE8)))),
+      decoration: const BoxDecoration(
+        border: Border(bottom: BorderSide(color: Color(0xFFE8EEE8))),
+      ),
       child: Row(
         children: values
             .map(
               (value) => Expanded(
-                child: Text(value, style: const TextStyle(fontSize: 13, color: Color(0xFF27352E))),
+                child: Text(
+                  value,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF27352E),
+                  ),
+                ),
               ),
             )
             .toList(),
@@ -1773,11 +2241,22 @@ class _ReportCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Reportar situaciones con docentes', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Reportar situaciones con docentes',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 10),
           Text(
             'Formulario con profesor, materia, tipo de situación, descripción y archivos adjuntos.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.35),
+            style: TextStyle(
+              fontSize: 13,
+              color: Color(0xFF62716A),
+              height: 1.35,
+            ),
           ),
           SizedBox(height: 12),
           _ActionPill(label: 'Enviar reporte', icon: Icons.send_outlined),
@@ -1808,44 +2287,80 @@ class _TuitionCard extends StatelessWidget {
         children: [
           Row(
             children: [
-              const Expanded(child: Text('Pago de matrícula', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726)))),
+              const Expanded(
+                child: Text(
+                  'Pago de matrícula',
+                  style: TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF173726),
+                  ),
+                ),
+              ),
               _StatusPill(
                 label: paid ? 'Pagado' : 'Pendiente',
                 color: paid ? const Color(0xFF1B7A4B) : const Color(0xFFC03A2B),
-                background: paid ? const Color(0xFFE7F5EC) : const Color(0xFFFCEAE8),
+                background: paid
+                    ? const Color(0xFFE7F5EC)
+                    : const Color(0xFFFCEAE8),
               ),
             ],
           ),
           const SizedBox(height: 12),
-          _SummaryLine(label: 'Balance pendiente', value: paid ? 'RD\$ 0.00' : 'RD\$ 12,450'),
+          _SummaryLine(
+            label: 'Balance pendiente',
+            value: paid ? 'RD\$ 0.00' : 'RD\$ 12,450',
+          ),
           const _SummaryLine(label: 'Fecha límite', value: '15 Ago 2026'),
           const SizedBox(height: 12),
-          SimpleLineChart(values: paid ? const [0.18, 0.22, 0.19, 0.16, 0.14, 0.12, 0.08] : const [0.18, 0.28, 0.35, 0.42, 0.39, 0.52, 0.18]),
+          SimpleLineChart(
+            values: paid
+                ? const [0.18, 0.22, 0.19, 0.16, 0.14, 0.12, 0.08]
+                : const [0.18, 0.28, 0.35, 0.42, 0.39, 0.52, 0.18],
+          ),
           const SizedBox(height: 12),
           const Text(
             'Métodos de pago: Tarjeta, Transferencia, Apple Pay, Google Pay y Pago en línea.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.35),
+            style: TextStyle(
+              fontSize: 13,
+              color: Color(0xFF62716A),
+              height: 1.35,
+            ),
           ),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
-            children: ['Tarjeta', 'Transferencia', 'Apple Pay', 'Google Pay', 'Pago en línea']
-                .map(
-                  (method) => FilterChip(
-                    label: Text(method),
-                    selected: selectedMethods.contains(method),
-                    onSelected: onToggleMethod == null ? null : (_) => onToggleMethod!(method),
-                    selectedColor: const Color(0xFFE7F5EC),
-                    checkmarkColor: const Color(0xFF0E5A38),
-                  ),
-                )
-                .toList(),
+            children:
+                [
+                      'Tarjeta',
+                      'Transferencia',
+                      'Apple Pay',
+                      'Google Pay',
+                      'Pago en línea',
+                    ]
+                    .map(
+                      (method) => FilterChip(
+                        label: Text(method),
+                        selected: selectedMethods.contains(method),
+                        onSelected: onToggleMethod == null
+                            ? null
+                            : (_) => onToggleMethod!(method),
+                        selectedColor: const Color(0xFFE7F5EC),
+                        checkmarkColor: const Color(0xFF0E5A38),
+                      ),
+                    )
+                    .toList(),
           ),
           const SizedBox(height: 12),
           Row(
             children: [
-              Expanded(child: _ActionPill(label: paid ? 'Pagado' : 'Pagar', icon: Icons.lock_open_outlined)),
+              Expanded(
+                child: _ActionPill(
+                  label: paid ? 'Pagado' : 'Pagar',
+                  icon: Icons.lock_open_outlined,
+                ),
+              ),
               const SizedBox(width: 10),
               Expanded(
                 child: FilledButton.tonalIcon(
@@ -1871,17 +2386,44 @@ class _PaymentMethodsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Métodos de pago', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Métodos de pago',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              _StatusPill(label: 'Tarjeta', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Transferencia', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Apple Pay', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Google Pay', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Pago en línea', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(
+                label: 'Tarjeta',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Transferencia',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Apple Pay',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Google Pay',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Pago en línea',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
             ],
           ),
         ],
@@ -1899,7 +2441,14 @@ class _CreditsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Pago de créditos', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Pago de créditos',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _SummaryLine(label: 'Créditos inscritos', value: '15'),
           _SummaryLine(label: 'Precio por crédito', value: 'RD\$ 950'),
@@ -1920,7 +2469,14 @@ class _CreditsBreakdownCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Detalle de créditos', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Detalle de créditos',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _SummaryLine(label: 'Total facturado', value: 'RD\$ 14,250'),
           _SummaryLine(label: 'Abonos realizados', value: 'RD\$ 5,000'),
@@ -1940,19 +2496,54 @@ class _ServicesCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Pago de servicios', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Pago de servicios',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              _StatusPill(label: 'Laboratorio', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Biblioteca', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Carnet', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Graduación', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Constancias', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Certificaciones', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Reposición', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(
+                label: 'Laboratorio',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Biblioteca',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Carnet',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Graduación',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Constancias',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Certificaciones',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Reposición',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
             ],
           ),
           SizedBox(height: 12),
@@ -1972,7 +2563,14 @@ class _ServiceActionsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Acciones', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Acciones',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _ActionPill(label: 'Pagar servicios', icon: Icons.payments_outlined),
         ],
@@ -1990,14 +2588,24 @@ class _StatementCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Estado de cuenta', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Estado de cuenta',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _TableHeader(columns: ['Fecha', 'Concepto', 'Cargo', 'Pago']),
           _TableRowItem(values: ['01/08', 'Matrícula', '14,250', '0']),
           _TableRowItem(values: ['03/08', 'Pago parcial', '0', '5,000']),
           _TableRowItem(values: ['07/08', 'Balance', '0', '9,250']),
           SizedBox(height: 10),
-          _ActionPill(label: 'Exportar PDF', icon: Icons.picture_as_pdf_outlined),
+          _ActionPill(
+            label: 'Exportar PDF',
+            icon: Icons.picture_as_pdf_outlined,
+          ),
         ],
       ),
     );
@@ -2015,15 +2623,34 @@ class _FiltersCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(title, style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            title,
+            style: const TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           const SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: const [
-              _StatusPill(label: 'Este mes', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Últimos 3 meses', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Exportar PDF', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(
+                label: 'Este mes',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Últimos 3 meses',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Exportar PDF',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
             ],
           ),
         ],
@@ -2039,20 +2666,45 @@ class _NotificationStack extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Column(
       children: [
-        _NotificationCard(title: 'Pago pendiente de matrícula', subtitle: 'El saldo vence en 4 días.', icon: Icons.payments_outlined, color: Color(0xFFC03A2B)),
+        _NotificationCard(
+          title: 'Pago pendiente de matrícula',
+          subtitle: 'El saldo vence en 4 días.',
+          icon: Icons.payments_outlined,
+          color: Color(0xFFC03A2B),
+        ),
         SizedBox(height: 12),
-        _NotificationCard(title: 'Nueva calificación publicada', subtitle: 'Programación I: A en el último parcial.', icon: Icons.grade_outlined, color: Color(0xFF1B7A4B)),
+        _NotificationCard(
+          title: 'Nueva calificación publicada',
+          subtitle: 'Programación I: A en el último parcial.',
+          icon: Icons.grade_outlined,
+          color: Color(0xFF1B7A4B),
+        ),
         SizedBox(height: 12),
-        _NotificationCard(title: 'Cambio de horario', subtitle: 'La clase de miércoles se movió a Aula 108.', icon: Icons.schedule_outlined, color: Color(0xFF2458A6)),
+        _NotificationCard(
+          title: 'Cambio de horario',
+          subtitle: 'La clase de miércoles se movió a Aula 108.',
+          icon: Icons.schedule_outlined,
+          color: Color(0xFF2458A6),
+        ),
         SizedBox(height: 12),
-        _NotificationCard(title: 'Evento institucional', subtitle: 'Graduación y feria académica este viernes.', icon: Icons.event_available_outlined, color: Color(0xFF7A6A1C)),
+        _NotificationCard(
+          title: 'Evento institucional',
+          subtitle: 'Graduación y feria académica este viernes.',
+          icon: Icons.event_available_outlined,
+          color: Color(0xFF7A6A1C),
+        ),
       ],
     );
   }
 }
 
 class _NotificationCard extends StatelessWidget {
-  const _NotificationCard({required this.title, required this.subtitle, required this.icon, required this.color});
+  const _NotificationCard({
+    required this.title,
+    required this.subtitle,
+    required this.icon,
+    required this.color,
+  });
 
   final String title;
   final String subtitle;
@@ -2067,7 +2719,10 @@ class _NotificationCard extends StatelessWidget {
           Container(
             width: 48,
             height: 48,
-            decoration: BoxDecoration(color: color.withValues(alpha: 0.12), borderRadius: BorderRadius.circular(16)),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.12),
+              borderRadius: BorderRadius.circular(16),
+            ),
             child: Icon(icon, color: color),
           ),
           const SizedBox(width: 12),
@@ -2075,9 +2730,22 @@ class _NotificationCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: const TextStyle(fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w800,
+                    color: Color(0xFF173726),
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(subtitle, style: const TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.35)),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF62716A),
+                    height: 1.35,
+                  ),
+                ),
               ],
             ),
           ),
@@ -2096,14 +2764,28 @@ class _ChatSupportPreview extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Chat de soporte', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Chat de soporte',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 10),
           Text(
             'Registro, Caja, Finanzas, Tecnología, Coordinación académica y Biblioteca.',
-            style: TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.35),
+            style: TextStyle(
+              fontSize: 13,
+              color: Color(0xFF62716A),
+              height: 1.35,
+            ),
           ),
           SizedBox(height: 12),
-          _ActionPill(label: 'Iniciar conversación', icon: Icons.chat_bubble_outline),
+          _ActionPill(
+            label: 'Iniciar conversación',
+            icon: Icons.chat_bubble_outline,
+          ),
         ],
       ),
     );
@@ -2127,9 +2809,19 @@ class _ProfileSummaryCard extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: const [
-                    Text('Berny Alcántara', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+                    Text(
+                      'Berny Alcántara',
+                      style: TextStyle(
+                        fontSize: 18,
+                        fontWeight: FontWeight.w800,
+                        color: Color(0xFF173726),
+                      ),
+                    ),
                     SizedBox(height: 4),
-                    Text('berny@miunad.edu.do', style: TextStyle(color: Color(0xFF62716A))),
+                    Text(
+                      'berny@miunad.edu.do',
+                      style: TextStyle(color: Color(0xFF62716A)),
+                    ),
                   ],
                 ),
               ),
@@ -2138,7 +2830,10 @@ class _ProfileSummaryCard extends StatelessWidget {
           const SizedBox(height: 16),
           const _SummaryLine(label: 'Matrícula', value: '2024-0315'),
           const _SummaryLine(label: 'Carrera', value: 'Ing. en Software'),
-          const _SummaryLine(label: 'Facultad', value: 'Ingeniería y Tecnología'),
+          const _SummaryLine(
+            label: 'Facultad',
+            value: 'Ingeniería y Tecnología',
+          ),
           const _SummaryLine(label: 'Teléfono', value: '+1 (809) 555-0134'),
         ],
       ),
@@ -2197,7 +2892,15 @@ class _SettingTile extends StatelessWidget {
         children: [
           Icon(icon, color: const Color(0xFF0E5A38), size: 28),
           const SizedBox(height: 10),
-          Text(label, textAlign: TextAlign.center, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Color(0xFF173726))),
+          Text(
+            label,
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF173726),
+            ),
+          ),
         ],
       ),
     );
@@ -2213,11 +2916,24 @@ class _SupportContactsCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Ayuda y seguridad', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Ayuda y seguridad',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
-          _ActionPill(label: 'Cambiar contraseña', icon: Icons.password_outlined),
+          _ActionPill(
+            label: 'Cambiar contraseña',
+            icon: Icons.password_outlined,
+          ),
           SizedBox(height: 10),
-          _ActionPill(label: 'Biometría y privacidad', icon: Icons.fingerprint_outlined),
+          _ActionPill(
+            label: 'Biometría y privacidad',
+            icon: Icons.fingerprint_outlined,
+          ),
           SizedBox(height: 10),
           _ActionPill(label: 'Cerrar sesión', icon: Icons.logout_outlined),
         ],
@@ -2238,8 +2954,20 @@ class _SummaryLine extends StatelessWidget {
       padding: const EdgeInsets.only(bottom: 10),
       child: Row(
         children: [
-          Expanded(child: Text(label, style: const TextStyle(fontSize: 13, color: Color(0xFF62716A)))),
-          Text(value, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Expanded(
+            child: Text(
+              label,
+              style: const TextStyle(fontSize: 13, color: Color(0xFF62716A)),
+            ),
+          ),
+          Text(
+            value,
+            style: const TextStyle(
+              fontSize: 13,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
         ],
       ),
     );
@@ -2272,7 +3000,15 @@ class _ActionPill extends StatelessWidget {
             children: [
               Icon(icon, size: 18, color: const Color(0xFF0E5A38)),
               const SizedBox(width: 8),
-              Flexible(child: Text(label, style: const TextStyle(fontWeight: FontWeight.w700, color: Color(0xFF173726)))),
+              Flexible(
+                child: Text(
+                  label,
+                  style: const TextStyle(
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF173726),
+                  ),
+                ),
+              ),
             ],
           ),
         ),
@@ -2282,7 +3018,12 @@ class _ActionPill extends StatelessWidget {
 }
 
 class SimpleCircularProgress extends StatelessWidget {
-  const SimpleCircularProgress({super.key, required this.value, required this.label, required this.subtitle});
+  const SimpleCircularProgress({
+    super.key,
+    required this.value,
+    required this.label,
+    required this.subtitle,
+  });
 
   final double value;
   final String label;
@@ -2302,15 +3043,31 @@ class SimpleCircularProgress extends StatelessWidget {
                 value: value,
                 strokeWidth: 12,
                 backgroundColor: const Color(0xFFE7EFE9),
-                valueColor: const AlwaysStoppedAnimation<Color>(Color(0xFF0E5A38)),
+                valueColor: const AlwaysStoppedAnimation<Color>(
+                  Color(0xFF0E5A38),
+                ),
               ),
               Center(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('${(value * 100).round()}%', style: const TextStyle(fontSize: 24, fontWeight: FontWeight.w900, color: Color(0xFF173726))),
+                    Text(
+                      '${(value * 100).round()}%',
+                      style: const TextStyle(
+                        fontSize: 24,
+                        fontWeight: FontWeight.w900,
+                        color: Color(0xFF173726),
+                      ),
+                    ),
                     const SizedBox(height: 4),
-                    Text(label, textAlign: TextAlign.center, style: const TextStyle(fontSize: 12, color: Color(0xFF62716A))),
+                    Text(
+                      label,
+                      textAlign: TextAlign.center,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        color: Color(0xFF62716A),
+                      ),
+                    ),
                   ],
                 ),
               ),
@@ -2318,7 +3075,14 @@ class SimpleCircularProgress extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 10),
-        Text(subtitle, style: const TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: Color(0xFF173726))),
+        Text(
+          subtitle,
+          style: const TextStyle(
+            fontSize: 13,
+            fontWeight: FontWeight.w700,
+            color: Color(0xFF173726),
+          ),
+        ),
       ],
     );
   }
@@ -2353,7 +3117,11 @@ class _LineChartPainter extends CustomPainter {
       ..strokeWidth = 1.2
       ..style = PaintingStyle.stroke;
 
-    canvas.drawLine(Offset(0, size.height - 4), Offset(size.width, size.height - 4), axis);
+    canvas.drawLine(
+      Offset(0, size.height - 4),
+      Offset(size.width, size.height - 4),
+      axis,
+    );
 
     if (values.isEmpty) return;
 
@@ -2389,7 +3157,8 @@ class _LineChartPainter extends CustomPainter {
   }
 
   @override
-  bool shouldRepaint(covariant _LineChartPainter oldDelegate) => oldDelegate.values != values;
+  bool shouldRepaint(covariant _LineChartPainter oldDelegate) =>
+      oldDelegate.values != values;
 }
 
 class _FeatureHero extends StatelessWidget {
@@ -2407,7 +3176,10 @@ class _FeatureHero extends StatelessWidget {
             child: Container(
               width: 68,
               height: 68,
-              decoration: BoxDecoration(color: feature.tint, borderRadius: BorderRadius.circular(20)),
+              decoration: BoxDecoration(
+                color: feature.tint,
+                borderRadius: BorderRadius.circular(20),
+              ),
               child: Icon(feature.icon, color: feature.color, size: 32),
             ),
           ),
@@ -2416,9 +3188,23 @@ class _FeatureHero extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(feature.title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w900, color: Color(0xFF173726))),
+                Text(
+                  feature.title,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xFF173726),
+                  ),
+                ),
                 const SizedBox(height: 4),
-                Text(_featureSubtitle(feature), style: const TextStyle(fontSize: 13, color: Color(0xFF62716A), height: 1.35)),
+                Text(
+                  _featureSubtitle(feature),
+                  style: const TextStyle(
+                    fontSize: 13,
+                    color: Color(0xFF62716A),
+                    height: 1.35,
+                  ),
+                ),
               ],
             ),
           ),
@@ -2492,7 +3278,14 @@ class _BalanceLegendCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Interpretación', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Interpretación',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _SummaryLine(label: 'En verde', value: 'Pagado'),
           _SummaryLine(label: 'En rojo', value: 'Deuda'),
@@ -2511,21 +3304,43 @@ class _SelectionCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Selección de materias', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Selección de materias',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              _StatusPill(label: 'Programación II · 4 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Sistemas Operativos · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Ingeniería de Software · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(
+                label: 'Programación II · 4 cr.',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Sistemas Operativos · 3 cr.',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Ingeniería de Software · 3 cr.',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
             ],
           ),
           SizedBox(height: 12),
           _SummaryLine(label: 'Total de créditos seleccionados', value: '10'),
           _SummaryLine(label: 'Validación de choques', value: 'Sin conflictos'),
-          _ActionPill(label: 'Agregar / eliminar materias', icon: Icons.add_circle_outline),
+          _ActionPill(
+            label: 'Agregar / eliminar materias',
+            icon: Icons.add_circle_outline,
+          ),
         ],
       ),
     );
@@ -2550,9 +3365,20 @@ class _ScoreDetailCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Score académico', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Score académico',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
-          SimpleCircularProgress(value: 0.82, label: 'Índice General', subtitle: '3.72 / 4.00'),
+          SimpleCircularProgress(
+            value: 0.82,
+            label: 'Índice General',
+            subtitle: '3.72 / 4.00',
+          ),
           SizedBox(height: 16),
           _SummaryLine(label: 'Créditos aprobados', value: '72'),
           _SummaryLine(label: 'Créditos pendientes', value: '18'),
@@ -2592,7 +3418,14 @@ class _LibraryCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Biblioteca Virtual', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Biblioteca Virtual',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _ActionPill(label: 'Buscar libros', icon: Icons.search_outlined),
           SizedBox(height: 10),
@@ -2614,16 +3447,39 @@ class _CampusVirtualDetailCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text('Campus Virtual', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Campus Virtual',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           Wrap(
             spacing: 8,
             runSpacing: 8,
             children: [
-              _StatusPill(label: 'Google Classroom', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Moodle', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Teams', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Zoom', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(
+                label: 'Google Classroom',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Moodle',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Teams',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
+              _StatusPill(
+                label: 'Zoom',
+                color: Color(0xFF0E5A38),
+                background: Color(0xFFE7F5EC),
+              ),
             ],
           ),
         ],
@@ -2641,7 +3497,14 @@ class _SupportDetailCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: const [
-          Text('Chat de Soporte', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
+          Text(
+            'Chat de Soporte',
+            style: TextStyle(
+              fontSize: 18,
+              fontWeight: FontWeight.w800,
+              color: Color(0xFF173726),
+            ),
+          ),
           SizedBox(height: 12),
           _SummaryLine(label: 'Registro', value: 'Activo'),
           _SummaryLine(label: 'Caja', value: 'Activo'),
@@ -2657,7 +3520,9 @@ class _SupportDetailCard extends StatelessWidget {
 
 void _openFeature(BuildContext context, QuickFeature feature) {
   Navigator.of(context).push(
-    MaterialPageRoute<void>(builder: (_) => _FeatureDetailPage(feature: feature)),
+    MaterialPageRoute<void>(
+      builder: (_) => _FeatureDetailPage(feature: feature),
+    ),
   );
 }
 
