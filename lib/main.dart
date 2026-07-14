@@ -1,6 +1,10 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:qr_flutter/qr_flutter.dart';
 import 'theme.dart';
+import 'screens/login_page.dart';
+import 'screens/create_account_page.dart';
+import 'screens/verify_code_page.dart';
 
 part 'screens/dashboard_page.dart';
 part 'screens/academic_page.dart';
@@ -8,6 +12,7 @@ part 'screens/payments_page.dart';
 part 'screens/notifications_page.dart';
 part 'screens/profile_page.dart';
 part 'screens/feature_detail_page.dart';
+part 'screens/virtual_classroom_page.dart';
 
 void main() {
   runApp(const MiUnadApp());
@@ -22,7 +27,13 @@ class MiUnadApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mi UNAD',
       theme: MiUnadTheme.lightTheme,
-      home: const AppShell(),
+      initialRoute: '/login',
+      routes: {
+        '/login': (context) => const LoginPage(),
+        '/signup': (context) => const CreateAccountPage(),
+        '/verify': (context) => const VerifyCodePage(),
+        '/home': (context) => const AppShell(),
+      },
     );
   }
 }
@@ -1530,12 +1541,12 @@ class _PensumGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = [
-      ('Matemática Básica', 'Aprobada', const Color(0xFF1B7A4B)),
-      ('Contabilidad I', 'En curso', const Color(0xFF2458A6)),
+      ('Matemática Discreta', 'Aprobada', const Color(0xFF1B7A4B)),
+      ('Programación I', 'En curso', const Color(0xFF2458A6)),
       ('Ética Profesional', 'Pendiente', const Color(0xFF7A6A1C)),
       ('Legislación', 'Bloqueada', const Color(0xFF7A3E1C)),
-      ('Mercadeo Digital', 'Aprobada', const Color(0xFF1B7A4B)),
-      ('Finanzas', 'En curso', const Color(0xFF2458A6)),
+      ('Desarrollo Web', 'Aprobada', const Color(0xFF1B7A4B)),
+      ('Bases de Datos', 'En curso', const Color(0xFF2458A6)),
     ];
 
     return GridView.builder(
@@ -1584,9 +1595,9 @@ class _ScheduleCard extends StatelessWidget {
           SizedBox(height: 12),
           _WeekStrip(),
           SizedBox(height: 12),
-          _ScheduleTile(day: 'Lun', subject: 'Finanzas', time: '8:00 - 9:40', room: 'Aula 204', color: Color(0xFF0E5A38)),
-          _ScheduleTile(day: 'Mié', subject: 'Mercadeo', time: '10:00 - 11:40', room: 'Aula 108', color: Color(0xFF2458A6)),
-          _ScheduleTile(day: 'Vie', subject: 'Contabilidad', time: '1:00 - 2:40', room: 'Aula 312', color: Color(0xFF4D6B2F)),
+          _ScheduleTile(day: 'Lun', subject: 'Programación II', time: '8:00 - 9:40', room: 'Lab 204', color: Color(0xFF0E5A38)),
+          _ScheduleTile(day: 'Mié', subject: 'Sistemas Operativos', time: '10:00 - 11:40', room: 'Lab 108', color: Color(0xFF2458A6)),
+          _ScheduleTile(day: 'Vie', subject: 'Ingeniería de Software', time: '1:00 - 2:40', room: 'Aula 312', color: Color(0xFF4D6B2F)),
         ],
       ),
     );
@@ -1698,9 +1709,9 @@ class _RecordsCard extends StatelessWidget {
           Text('Record académico', style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: Color(0xFF173726))),
           SizedBox(height: 12),
           _TableHeader(columns: ['Materia', 'Créditos', 'Calif.', 'Período']),
-          _TableRowItem(values: ['Finanzas', '3', 'A', '2026-1']),
-          _TableRowItem(values: ['Mercadeo', '4', 'B+', '2026-1']),
-          _TableRowItem(values: ['Contabilidad', '3', 'A-', '2025-3']),
+          _TableRowItem(values: ['Programación I', '3', 'A', '2026-1']),
+          _TableRowItem(values: ['Estructuras de Datos', '4', 'B+', '2026-1']),
+          _TableRowItem(values: ['Bases de Datos', '3', 'A-', '2025-3']),
         ],
       ),
     );
@@ -2030,7 +2041,7 @@ class _NotificationStack extends StatelessWidget {
       children: [
         _NotificationCard(title: 'Pago pendiente de matrícula', subtitle: 'El saldo vence en 4 días.', icon: Icons.payments_outlined, color: Color(0xFFC03A2B)),
         SizedBox(height: 12),
-        _NotificationCard(title: 'Nueva calificación publicada', subtitle: 'Finanzas: A en el último parcial.', icon: Icons.grade_outlined, color: Color(0xFF1B7A4B)),
+        _NotificationCard(title: 'Nueva calificación publicada', subtitle: 'Programación I: A en el último parcial.', icon: Icons.grade_outlined, color: Color(0xFF1B7A4B)),
         SizedBox(height: 12),
         _NotificationCard(title: 'Cambio de horario', subtitle: 'La clase de miércoles se movió a Aula 108.', icon: Icons.schedule_outlined, color: Color(0xFF2458A6)),
         SizedBox(height: 12),
@@ -2506,9 +2517,9 @@ class _SelectionCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: [
-              _StatusPill(label: 'Contabilidad Avanzada · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Finanzas Corporativas · 4 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Mercadeo Estratégico · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(label: 'Programación II · 4 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(label: 'Sistemas Operativos · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(label: 'Ingeniería de Software · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
             ],
           ),
           SizedBox(height: 12),

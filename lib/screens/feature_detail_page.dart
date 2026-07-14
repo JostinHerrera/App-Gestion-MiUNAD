@@ -12,7 +12,7 @@ class _FeatureDetailPage extends StatefulWidget {
 class _FeatureDetailPageState extends State<_FeatureDetailPage> {
   final Set<String> _selectedPaymentMethods = {'Tarjeta'};
   final Set<String> _selectedServices = {'Laboratorio', 'Biblioteca'};
-  final Set<String> _selectedSubjects = {'Finanzas Corporativas', 'Contabilidad Avanzada'};
+  final Set<String> _selectedSubjects = {'Programación II', 'Sistemas Operativos'};
   final Set<String> _favoriteNews = {'Nueva convocatoria de becas'};
   final TextEditingController _chatController = TextEditingController();
   final TextEditingController _libraryController = TextEditingController();
@@ -31,11 +31,11 @@ class _FeatureDetailPageState extends State<_FeatureDetailPage> {
   double _scoreProgress = 0.82;
 
   final List<_SelectableSubject> _availableSubjects = const [
-    _SelectableSubject('Finanzas Corporativas', 4, 'Aula 204', 'Lun 8:00'),
-    _SelectableSubject('Contabilidad Avanzada', 3, 'Aula 108', 'Mié 10:00'),
-    _SelectableSubject('Mercadeo Estratégico', 3, 'Aula 312', 'Vie 1:00'),
-    _SelectableSubject('Administración de Operaciones', 4, 'Aula 204', 'Mar 2:00'),
-    _SelectableSubject('Ética Profesional', 2, 'Aula 301', 'Jue 11:00'),
+    _SelectableSubject('Programación II', 4, 'Lab 204', 'Lun 8:00'),
+    _SelectableSubject('Sistemas Operativos', 3, 'Lab 108', 'Mié 10:00'),
+    _SelectableSubject('Ingeniería de Software', 3, 'Aula 312', 'Vie 1:00'),
+    _SelectableSubject('Redes de Computadoras', 4, 'Lab 204', 'Mar 2:00'),
+    _SelectableSubject('Desarrollo Web', 2, 'Lab 301', 'Jue 11:00'),
   ];
 
   final List<_ChatMessage> _messages = [
@@ -543,9 +543,9 @@ class _ScheduleInteractiveSection extends StatelessWidget {
           const SizedBox(height: 8),
           const _WeekStrip(),
           const SizedBox(height: 12),
-          const _ScheduleTile(day: 'Lun', subject: 'Finanzas', time: '8:00 - 9:40', room: 'Aula 204', color: Color(0xFF0E5A38)),
-          const _ScheduleTile(day: 'Mié', subject: 'Mercadeo', time: '10:00 - 11:40', room: 'Aula 108', color: Color(0xFF2458A6)),
-          const _ScheduleTile(day: 'Vie', subject: 'Contabilidad', time: '1:00 - 2:40', room: 'Aula 312', color: Color(0xFF4D6B2F)),
+          const _ScheduleTile(day: 'Lun', subject: 'Programación II', time: '8:00 - 9:40', room: 'Lab 204', color: Color(0xFF0E5A38)),
+          const _ScheduleTile(day: 'Mié', subject: 'Sistemas Operativos', time: '10:00 - 11:40', room: 'Lab 108', color: Color(0xFF2458A6)),
+          const _ScheduleTile(day: 'Vie', subject: 'Ingeniería de Software', time: '1:00 - 2:40', room: 'Aula 312', color: Color(0xFF4D6B2F)),
           const SizedBox(height: 8),
           _StatusPill(label: reminderEnabled ? 'Recordatorios activos' : 'Recordatorios desactivados', color: const Color(0xFF0E5A38), background: const Color(0xFFE7F5EC)),
         ],
@@ -578,9 +578,9 @@ class _RecordInteractiveSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           const _TableHeader(columns: ['Materia', 'Créditos', 'Calif.', 'Período']),
-          const _TableRowItem(values: ['Finanzas', '3', 'A', '2026-1']),
-          const _TableRowItem(values: ['Mercadeo', '4', 'B+', '2026-1']),
-          const _TableRowItem(values: ['Contabilidad', '3', 'A-', '2025-3']),
+          const _TableRowItem(values: ['Programación I', '3', 'A', '2026-1']),
+          const _TableRowItem(values: ['Estructuras de Datos', '4', 'B+', '2026-1']),
+          const _TableRowItem(values: ['Bases de Datos', '3', 'A-', '2025-3']),
           const SizedBox(height: 12),
           FilledButton.icon(onPressed: onSearch, icon: const Icon(Icons.picture_as_pdf_outlined), label: const Text('Exportar PDF')),
         ],

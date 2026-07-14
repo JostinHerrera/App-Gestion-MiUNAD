@@ -12,15 +12,55 @@ class _ProfilePageState extends State<ProfilePage> {
   bool _notifications = true;
   bool _biometrics = true;
   bool _privacyMode = false;
+  
+  final _nameController = TextEditingController(text: 'Berny Gómez');
+  final _careerController = TextEditingController(text: 'Ingeniería en Software');
+  final _enrollmentController = TextEditingController(text: '2022-0045');
+  final _emailController = TextEditingController(text: 'berny.gomez@unad.edu.do');
+  final _phoneController = TextEditingController(text: '+1 (809) 555-0123');
 
   void _editProfile() {
     showDialog<void>(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Editar información'),
-        content: const Text('Aquí luego puedes conectar el formulario de edición real con backend o base de datos.'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              const Text('Nombre completo', style: TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              TextField(controller: _nameController, decoration: const InputDecoration(border: OutlineInputBorder())),
+              const SizedBox(height: 16),
+              const Text('Carrera', style: TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              TextField(controller: _careerController, decoration: const InputDecoration(border: OutlineInputBorder())),
+              const SizedBox(height: 16),
+              const Text('Matrícula', style: TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              TextField(controller: _enrollmentController, decoration: const InputDecoration(border: OutlineInputBorder())),
+              const SizedBox(height: 16),
+              const Text('Correo electrónico', style: TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              TextField(controller: _emailController, decoration: const InputDecoration(border: OutlineInputBorder())),
+              const SizedBox(height: 16),
+              const Text('Teléfono', style: TextStyle(fontWeight: FontWeight.w600)),
+              const SizedBox(height: 4),
+              TextField(controller: _phoneController, decoration: const InputDecoration(border: OutlineInputBorder())),
+            ],
+          ),
+        ),
         actions: [
-          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cerrar')),
+          TextButton(onPressed: () => Navigator.of(context).pop(), child: const Text('Cancelar')),
+          FilledButton(
+            onPressed: () {
+              setState(() {});
+              Navigator.of(context).pop();
+              ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Información actualizada correctamente')));
+            },
+            child: const Text('Guardar'),
+          ),
         ],
       ),
     );
@@ -28,6 +68,16 @@ class _ProfilePageState extends State<ProfilePage> {
 
   void _logout() {
     ScaffoldMessenger.of(context).showSnackBar(const SnackBar(content: Text('Sesión cerrada en el prototipo')));
+  }
+
+  @override
+  void dispose() {
+    _nameController.dispose();
+    _careerController.dispose();
+    _enrollmentController.dispose();
+    _emailController.dispose();
+    _phoneController.dispose();
+    super.dispose();
   }
 
   @override

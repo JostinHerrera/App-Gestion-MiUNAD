@@ -11,7 +11,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
   int _filterIndex = 0;
   final List<_NotificationItemModel> _items = [
     _NotificationItemModel(title: 'Pago pendiente de matrícula', subtitle: 'El saldo vence en 4 días.', icon: Icons.payments_outlined, color: const Color(0xFFC03A2B), unread: true),
-    _NotificationItemModel(title: 'Nueva calificación publicada', subtitle: 'Finanzas: A en el último parcial.', icon: Icons.grade_outlined, color: const Color(0xFF1B7A4B), unread: true),
+    _NotificationItemModel(title: 'Nueva calificación publicada', subtitle: 'Programación I: A en el último parcial.', icon: Icons.grade_outlined, color: const Color(0xFF1B7A4B), unread: true),
     _NotificationItemModel(title: 'Cambio de horario', subtitle: 'La clase de miércoles se movió a Aula 108.', icon: Icons.schedule_outlined, color: const Color(0xFF2458A6), unread: false),
     _NotificationItemModel(title: 'Evento institucional', subtitle: 'Graduación y feria académica este viernes.', icon: Icons.event_available_outlined, color: const Color(0xFF7A6A1C), unread: false),
   ];
