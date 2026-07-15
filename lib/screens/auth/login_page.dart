@@ -22,87 +22,42 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
               const SizedBox(height: 40),
-              // Header Image
+              // Logo
               Container(
-                height: 200,
-                width: double.infinity,
+                width: 80,
+                height: 80,
                 decoration: BoxDecoration(
-                  color: const Color(0xFFE8F4EC),
-                  borderRadius: BorderRadius.circular(32),
+                  color: const Color(0xFF0E5A38),
+                  borderRadius: BorderRadius.circular(20),
                 ),
-                child: Center(
-                  child: Stack(
-                    children: [
-                      // Placeholder for background image
-                      Container(
-                        width: double.infinity,
-                        height: double.infinity,
-                        decoration: BoxDecoration(
-                          gradient: LinearGradient(
-                            begin: Alignment.topLeft,
-                            end: Alignment.bottomRight,
-                            colors: [
-                              const Color(0xFF0E5A38).withValues(alpha: 0.1),
-                              const Color(0xFF4ADE80).withValues(alpha: 0.2),
-                            ],
-                          ),
-                          borderRadius: BorderRadius.circular(32),
-                        ),
-                        child: const Icon(
-                          Icons.school_outlined,
-                          size: 80,
-                          color: Color(0xFF0E5A38),
-                        ),
-                      ),
-                    ],
+                child: const Center(
+                  child: Text(
+                    'UNAD',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
               ),
               const SizedBox(height: 30),
-              // Title
+              // Heading
               const Text(
-                'MI UNAD',
+                'Login to your Account',
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF173726),
                 ),
               ),
-              const SizedBox(height: 8),
-              const Text(
-                'Let\'s get you Login!',
-                style: TextStyle(
-                  fontSize: 16,
-                  color: Color(0xFF62716A),
-                ),
-              ),
-              const SizedBox(height: 30),
-              // Social Login Buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _SocialButton(
-                    icon: 'assets/icons/apple.svg',
-                    onTap: () {},
-                  ),
-                  const SizedBox(width: 20),
-                  _SocialButton(
-                    icon: 'assets/icons/google.svg',
-                    onTap: () {},
-                  ),
-                  const SizedBox(width: 20),
-                  _SocialButton(
-                    icon: 'assets/icons/facebook.svg',
-                    onTap: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
+              const SizedBox(height: 40),
               // Email Field
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -113,7 +68,7 @@ class _LoginPageState extends State<LoginPage> {
                     filled: true,
                     fillColor: const Color(0xFFF9F8F5),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
@@ -135,7 +90,7 @@ class _LoginPageState extends State<LoginPage> {
                     filled: true,
                     fillColor: const Color(0xFFF9F8F5),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
@@ -147,6 +102,7 @@ class _LoginPageState extends State<LoginPage> {
                         _obscurePassword
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
+                        color: const Color(0xFF62716A),
                       ),
                       onPressed: () {
                         setState(() {
@@ -157,7 +113,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 12),
+              const SizedBox(height: 16),
               // Forgot Password
               Padding(
                 padding: const EdgeInsets.only(right: 24),
@@ -175,7 +131,7 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               // Sign In Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -189,20 +145,73 @@ class _LoginPageState extends State<LoginPage> {
                     style: FilledButton.styleFrom(
                       backgroundColor: const Color(0xFF0E5A38),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: const Text(
-                      'Sign In',
+                      'Sign in',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 32),
+              // Separator
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Divider(
+                        color: Color(0xFFE0E0E0),
+                        thickness: 1,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'Or sign in with',
+                        style: TextStyle(
+                          color: const Color(0xFF62716A),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    const Expanded(
+                      child: Divider(
+                        color: Color(0xFFE0E0E0),
+                        thickness: 1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              // Social Login Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _SocialButton(
+                    icon: Icons.g_mobiledata,
+                    onTap: () {},
+                  ),
+                  const SizedBox(width: 20),
+                  _SocialButton(
+                    icon: Icons.facebook,
+                    onTap: () {},
+                  ),
+                  const SizedBox(width: 20),
+                  _SocialButton(
+                    icon: Icons.alternate_email,
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
               // Sign Up Link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -211,6 +220,7 @@ class _LoginPageState extends State<LoginPage> {
                     'Don\'t have an account? ',
                     style: TextStyle(
                       color: Color(0xFF62716A),
+                      fontSize: 14,
                     ),
                   ),
                   TextButton(
@@ -218,10 +228,11 @@ class _LoginPageState extends State<LoginPage> {
                       Navigator.of(context).pushNamed('/signup');
                     },
                     child: const Text(
-                      'Sign Up',
+                      'Sign up',
                       style: TextStyle(
                         color: Color(0xFF0E5A38),
                         fontWeight: FontWeight.w600,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -242,7 +253,7 @@ class _SocialButton extends StatelessWidget {
     required this.onTap,
   });
 
-  final String icon;
+  final IconData icon;
   final VoidCallback onTap;
 
   @override
@@ -253,27 +264,20 @@ class _SocialButton extends StatelessWidget {
         width: 56,
         height: 56,
         decoration: BoxDecoration(
-          color: const Color(0xFFF9F8F5),
-          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: const Color(0xFFE0E0E0),
           ),
         ),
         child: Center(
           child: Icon(
-            _getIconData(icon),
+            icon,
             size: 24,
             color: const Color(0xFF62716A),
           ),
         ),
       ),
     );
-  }
-
-  IconData _getIconData(String iconPath) {
-    if (iconPath.contains('apple')) return Icons.apple;
-    if (iconPath.contains('google')) return Icons.g_mobiledata;
-    if (iconPath.contains('facebook')) return Icons.facebook;
-    return Icons.person;
   }
 }

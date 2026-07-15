@@ -1,10 +1,8 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:mi_unad_project/screens/auth/create_account_page.dart';
-import 'package:mi_unad_project/screens/auth/login_page.dart';
-import 'package:mi_unad_project/screens/auth/verify_code_page.dart';
-import 'package:mi_unad_project/theme.dart';
-import 'package:qr_flutter/qr_flutter.dart';
+import 'theme.dart';
+import 'models/virtual_classroom_models.dart';
+import 'screens/subject_detail_page.dart';
 
 part 'screens/student/dashboard_page.dart';
 part 'screens/student/academic_page.dart';
@@ -13,6 +11,7 @@ part 'screens/student/notifications_page.dart';
 part 'screens/student/profile_page.dart';
 part 'screens/student/feature_detail_page.dart';
 part 'screens/student/virtual_classroom_page.dart';
+
 
 void main() {
   runApp(const MiUnadApp());
@@ -27,13 +26,7 @@ class MiUnadApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Mi UNAD',
       theme: MiUnadTheme.lightTheme,
-      initialRoute: '/login',
-      routes: {
-        '/login': (context) => const LoginPage(),
-        '/signup': (context) => const CreateAccountPage(),
-        '/verify': (context) => const VerifyCodePage(),
-        '/home': (context) => const AppShell(),
-      },
+      home: const AppShell(),
     );
   }
 }
@@ -1922,12 +1915,12 @@ class _PensumGrid extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final entries = [
-      ('Matemática Discreta', 'Aprobada', const Color(0xFF1B7A4B)),
-      ('Programación I', 'En curso', const Color(0xFF2458A6)),
+      ('Matemática Básica', 'Aprobada', const Color(0xFF1B7A4B)),
+      ('Contabilidad I', 'En curso', const Color(0xFF2458A6)),
       ('Ética Profesional', 'Pendiente', const Color(0xFF7A6A1C)),
       ('Legislación', 'Bloqueada', const Color(0xFF7A3E1C)),
-      ('Desarrollo Web', 'Aprobada', const Color(0xFF1B7A4B)),
-      ('Bases de Datos', 'En curso', const Color(0xFF2458A6)),
+      ('Mercadeo Digital', 'Aprobada', const Color(0xFF1B7A4B)),
+      ('Finanzas', 'En curso', const Color(0xFF2458A6)),
     ];
 
     return GridView.builder(
@@ -1993,6 +1986,7 @@ class _ScheduleCard extends StatelessWidget {
           SizedBox(height: 12),
           _WeekStrip(),
           SizedBox(height: 12),
+<<<<<<< HEAD
           _ScheduleTile(
             day: 'Lun',
             subject: 'Programación II',
@@ -2014,6 +2008,11 @@ class _ScheduleCard extends StatelessWidget {
             room: 'Aula 312',
             color: Color(0xFF4D6B2F),
           ),
+=======
+          _ScheduleTile(day: 'Lun', subject: 'Finanzas', time: '8:00 - 9:40', room: 'Aula 204', color: Color(0xFF0E5A38)),
+          _ScheduleTile(day: 'Mié', subject: 'Mercadeo', time: '10:00 - 11:40', room: 'Aula 108', color: Color(0xFF2458A6)),
+          _ScheduleTile(day: 'Vie', subject: 'Contabilidad', time: '1:00 - 2:40', room: 'Aula 312', color: Color(0xFF4D6B2F)),
+>>>>>>> 0e21d8a ( cambios en el aula virtual)
         ],
       ),
     );
@@ -2159,9 +2158,9 @@ class _RecordsCard extends StatelessWidget {
           ),
           SizedBox(height: 12),
           _TableHeader(columns: ['Materia', 'Créditos', 'Calif.', 'Período']),
-          _TableRowItem(values: ['Programación I', '3', 'A', '2026-1']),
-          _TableRowItem(values: ['Estructuras de Datos', '4', 'B+', '2026-1']),
-          _TableRowItem(values: ['Bases de Datos', '3', 'A-', '2025-3']),
+          _TableRowItem(values: ['Finanzas', '3', 'A', '2026-1']),
+          _TableRowItem(values: ['Mercadeo', '4', 'B+', '2026-1']),
+          _TableRowItem(values: ['Contabilidad', '3', 'A-', '2025-3']),
         ],
       ),
     );
@@ -2673,12 +2672,16 @@ class _NotificationStack extends StatelessWidget {
           color: Color(0xFFC03A2B),
         ),
         SizedBox(height: 12),
+<<<<<<< HEAD
         _NotificationCard(
           title: 'Nueva calificación publicada',
           subtitle: 'Programación I: A en el último parcial.',
           icon: Icons.grade_outlined,
           color: Color(0xFF1B7A4B),
         ),
+=======
+        _NotificationCard(title: 'Nueva calificación publicada', subtitle: 'Finanzas: A en el último parcial.', icon: Icons.grade_outlined, color: Color(0xFF1B7A4B)),
+>>>>>>> 0e21d8a ( cambios en el aula virtual)
         SizedBox(height: 12),
         _NotificationCard(
           title: 'Cambio de horario',
@@ -3317,6 +3320,7 @@ class _SelectionCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: [
+<<<<<<< HEAD
               _StatusPill(
                 label: 'Programación II · 4 cr.',
                 color: Color(0xFF0E5A38),
@@ -3332,6 +3336,11 @@ class _SelectionCard extends StatelessWidget {
                 color: Color(0xFF0E5A38),
                 background: Color(0xFFE7F5EC),
               ),
+=======
+              _StatusPill(label: 'Contabilidad Avanzada · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(label: 'Finanzas Corporativas · 4 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+              _StatusPill(label: 'Mercadeo Estratégico · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
+>>>>>>> 0e21d8a ( cambios en el aula virtual)
             ],
           ),
           SizedBox(height: 12),

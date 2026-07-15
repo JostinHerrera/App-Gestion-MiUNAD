@@ -8,112 +8,76 @@ class CreateAccountPage extends StatefulWidget {
 }
 
 class _CreateAccountPageState extends State<CreateAccountPage> {
-  final _nameController = TextEditingController();
   final _emailController = TextEditingController();
   final _passwordController = TextEditingController();
+  final _confirmPasswordController = TextEditingController();
   bool _obscurePassword = true;
-  bool _agreeToTerms = false;
+  bool _obscureConfirmPassword = true;
 
   @override
   void dispose() {
-    _nameController.dispose();
     _emailController.dispose();
     _passwordController.dispose();
+    _confirmPasswordController.dispose();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SafeArea(
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const SizedBox(height: 40),
-              // Header Image
-              Container(
-                height: 200,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: const Color(0xFFE8F4EC),
-                  borderRadius: BorderRadius.circular(32),
-                ),
-                child: Center(
-                  child: Container(
-                    width: double.infinity,
-                    height: double.infinity,
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        colors: [
-                          const Color(0xFF0E5A38).withValues(alpha: 0.1),
-                          const Color(0xFF4ADE80).withValues(alpha: 0.2),
-                        ],
-                      ),
-                      borderRadius: BorderRadius.circular(32),
+              const SizedBox(height: 20),
+              // Back Button
+              Padding(
+                padding: const EdgeInsets.only(left: 24),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: IconButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    icon: const Icon(
+                      Icons.arrow_back_ios,
+                      color: Color(0xFF173726),
                     ),
-                    child: const Icon(
-                      Icons.person_add_outlined,
-                      size: 80,
-                      color: Color(0xFF0E5A38),
+                  ),
+                ),
+              ),
+              const SizedBox(height: 10),
+              // Logo
+              Container(
+                width: 80,
+                height: 80,
+                decoration: BoxDecoration(
+                  color: const Color(0xFF0E5A38),
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: const Center(
+                  child: Text(
+                    'UNAD',
+                    style: TextStyle(
+                      fontSize: 24,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.white,
                     ),
                   ),
                 ),
               ),
               const SizedBox(height: 30),
-              // Title
+              // Heading
               const Text(
-                'Create Account',
+                'Create your Account',
                 style: TextStyle(
-                  fontSize: 32,
+                  fontSize: 24,
                   fontWeight: FontWeight.bold,
                   color: Color(0xFF173726),
                 ),
               ),
-              const SizedBox(height: 30),
-              // Social Login Buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  _SocialButton(
-                    icon: Icons.apple,
-                    onTap: () {},
-                  ),
-                  const SizedBox(width: 20),
-                  _SocialButton(
-                    icon: Icons.g_mobiledata,
-                    onTap: () {},
-                  ),
-                  const SizedBox(width: 20),
-                  _SocialButton(
-                    icon: Icons.facebook,
-                    onTap: () {},
-                  ),
-                ],
-              ),
-              const SizedBox(height: 30),
-              // Name Field
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: TextField(
-                  controller: _nameController,
-                  decoration: InputDecoration(
-                    hintText: 'Name',
-                    filled: true,
-                    fillColor: const Color(0xFFF9F8F5),
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
-                      borderSide: BorderSide.none,
-                    ),
-                    contentPadding: const EdgeInsets.symmetric(
-                      horizontal: 20,
-                      vertical: 16,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 16),
+              const SizedBox(height: 40),
               // Email Field
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -124,7 +88,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     filled: true,
                     fillColor: const Color(0xFFF9F8F5),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
@@ -146,7 +110,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     filled: true,
                     fillColor: const Color(0xFFF9F8F5),
                     border: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(16),
+                      borderRadius: BorderRadius.circular(12),
                       borderSide: BorderSide.none,
                     ),
                     contentPadding: const EdgeInsets.symmetric(
@@ -158,6 +122,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                         _obscurePassword
                             ? Icons.visibility_outlined
                             : Icons.visibility_off_outlined,
+                        color: const Color(0xFF62716A),
                       ),
                       onPressed: () {
                         setState(() {
@@ -169,39 +134,41 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                 ),
               ),
               const SizedBox(height: 16),
-              // Agree to Terms Checkbox
+              // Confirm Password Field
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
-                child: Row(
-                  children: [
-                    Checkbox(
-                      value: _agreeToTerms,
-                      onChanged: (value) {
+                child: TextField(
+                  controller: _confirmPasswordController,
+                  obscureText: _obscureConfirmPassword,
+                  decoration: InputDecoration(
+                    hintText: 'Confirm Password',
+                    filled: true,
+                    fillColor: const Color(0xFFF9F8F5),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    contentPadding: const EdgeInsets.symmetric(
+                      horizontal: 20,
+                      vertical: 16,
+                    ),
+                    suffixIcon: IconButton(
+                      icon: Icon(
+                        _obscureConfirmPassword
+                            ? Icons.visibility_outlined
+                            : Icons.visibility_off_outlined,
+                        color: const Color(0xFF62716A),
+                      ),
+                      onPressed: () {
                         setState(() {
-                          _agreeToTerms = value ?? false;
+                          _obscureConfirmPassword = !_obscureConfirmPassword;
                         });
                       },
-                      activeColor: const Color(0xFF0E5A38),
                     ),
-                    Expanded(
-                      child: GestureDetector(
-                        onTap: () {
-                          setState(() {
-                            _agreeToTerms = !_agreeToTerms;
-                          });
-                        },
-                        child: const Text(
-                          'Agree with Terms & Condition',
-                          style: TextStyle(
-                            color: Color(0xFF62716A),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ],
+                  ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 24),
               // Sign Up Button
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 24),
@@ -215,20 +182,73 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     style: FilledButton.styleFrom(
                       backgroundColor: const Color(0xFF0E5A38),
                       shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+                        borderRadius: BorderRadius.circular(12),
                       ),
                     ),
                     child: const Text(
-                      'Sign Up',
+                      'Sign up',
                       style: TextStyle(
                         fontSize: 16,
                         fontWeight: FontWeight.w600,
+                        color: Colors.white,
                       ),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(height: 20),
+              const SizedBox(height: 32),
+              // Separator
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 24),
+                child: Row(
+                  children: [
+                    const Expanded(
+                      child: Divider(
+                        color: Color(0xFFE0E0E0),
+                        thickness: 1,
+                      ),
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: Text(
+                        'Or sign up with',
+                        style: TextStyle(
+                          color: const Color(0xFF62716A),
+                          fontSize: 14,
+                        ),
+                      ),
+                    ),
+                    const Expanded(
+                      child: Divider(
+                        color: Color(0xFFE0E0E0),
+                        thickness: 1,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(height: 24),
+              // Social Login Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  _SocialButton(
+                    icon: Icons.g_mobiledata,
+                    onTap: () {},
+                  ),
+                  const SizedBox(width: 20),
+                  _SocialButton(
+                    icon: Icons.facebook,
+                    onTap: () {},
+                  ),
+                  const SizedBox(width: 20),
+                  _SocialButton(
+                    icon: Icons.alternate_email,
+                    onTap: () {},
+                  ),
+                ],
+              ),
+              const SizedBox(height: 32),
               // Sign In Link
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -237,6 +257,7 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                     'Already have an account? ',
                     style: TextStyle(
                       color: Color(0xFF62716A),
+                      fontSize: 14,
                     ),
                   ),
                   TextButton(
@@ -244,10 +265,11 @@ class _CreateAccountPageState extends State<CreateAccountPage> {
                       Navigator.of(context).pop();
                     },
                     child: const Text(
-                      'Sign In',
+                      'Sign in',
                       style: TextStyle(
                         color: Color(0xFF0E5A38),
                         fontWeight: FontWeight.w600,
+                        fontSize: 14,
                       ),
                     ),
                   ),
@@ -279,8 +301,8 @@ class _SocialButton extends StatelessWidget {
         width: 56,
         height: 56,
         decoration: BoxDecoration(
-          color: const Color(0xFFF9F8F5),
-          borderRadius: BorderRadius.circular(16),
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(12),
           border: Border.all(
             color: const Color(0xFFE0E0E0),
           ),
