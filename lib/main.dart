@@ -1,4 +1,4 @@
-import 'dart:ui';
+﻿import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'theme.dart';
 import 'models/virtual_classroom_models.dart';
@@ -1986,7 +1986,6 @@ class _ScheduleCard extends StatelessWidget {
           SizedBox(height: 12),
           _WeekStrip(),
           SizedBox(height: 12),
-<<<<<<< HEAD
           _ScheduleTile(
             day: 'Lun',
             subject: 'Programación II',
@@ -2007,13 +2006,7 @@ class _ScheduleCard extends StatelessWidget {
             time: '1:00 - 2:40',
             room: 'Aula 312',
             color: Color(0xFF4D6B2F),
-          ),
-=======
-          _ScheduleTile(day: 'Lun', subject: 'Finanzas', time: '8:00 - 9:40', room: 'Aula 204', color: Color(0xFF0E5A38)),
-          _ScheduleTile(day: 'Mié', subject: 'Mercadeo', time: '10:00 - 11:40', room: 'Aula 108', color: Color(0xFF2458A6)),
-          _ScheduleTile(day: 'Vie', subject: 'Contabilidad', time: '1:00 - 2:40', room: 'Aula 312', color: Color(0xFF4D6B2F)),
->>>>>>> 0e21d8a ( cambios en el aula virtual)
-        ],
+          ),        ],
       ),
     );
   }
@@ -2672,17 +2665,12 @@ class _NotificationStack extends StatelessWidget {
           color: Color(0xFFC03A2B),
         ),
         SizedBox(height: 12),
-<<<<<<< HEAD
         _NotificationCard(
           title: 'Nueva calificación publicada',
           subtitle: 'Programación I: A en el último parcial.',
           icon: Icons.grade_outlined,
           color: Color(0xFF1B7A4B),
-        ),
-=======
-        _NotificationCard(title: 'Nueva calificación publicada', subtitle: 'Finanzas: A en el último parcial.', icon: Icons.grade_outlined, color: Color(0xFF1B7A4B)),
->>>>>>> 0e21d8a ( cambios en el aula virtual)
-        SizedBox(height: 12),
+        ),        SizedBox(height: 12),
         _NotificationCard(
           title: 'Cambio de horario',
           subtitle: 'La clase de miércoles se movió a Aula 108.',
@@ -3320,7 +3308,6 @@ class _SelectionCard extends StatelessWidget {
             spacing: 8,
             runSpacing: 8,
             children: [
-<<<<<<< HEAD
               _StatusPill(
                 label: 'Programación II · 4 cr.',
                 color: Color(0xFF0E5A38),
@@ -3335,13 +3322,7 @@ class _SelectionCard extends StatelessWidget {
                 label: 'Ingeniería de Software · 3 cr.',
                 color: Color(0xFF0E5A38),
                 background: Color(0xFFE7F5EC),
-              ),
-=======
-              _StatusPill(label: 'Contabilidad Avanzada · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Finanzas Corporativas · 4 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
-              _StatusPill(label: 'Mercadeo Estratégico · 3 cr.', color: Color(0xFF0E5A38), background: Color(0xFFE7F5EC)),
->>>>>>> 0e21d8a ( cambios en el aula virtual)
-            ],
+              ),            ],
           ),
           SizedBox(height: 12),
           _SummaryLine(label: 'Total de créditos seleccionados', value: '10'),
@@ -3536,3 +3517,4 @@ void _openFeature(BuildContext context, QuickFeature feature) {
 }
 
 void nullAction() {}
+
