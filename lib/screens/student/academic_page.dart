@@ -3,46 +3,62 @@ part of '../../main.dart';
 class AcademicPage extends StatelessWidget {
   const AcademicPage({super.key});
 
+  void _openOption(BuildContext context, String option) {
+    // Navigate to appropriate page based on option
+    switch (option) {
+      case 'Mis Materias':
+        _openFeature(context, QuickFeature.subjectSelection);
+        break;
+      case 'Matrícula':
+        _openFeature(context, QuickFeature.tuition);
+        break;
+      case 'Calificaciones':
+        _openFeature(context, QuickFeature.academicScore);
+        break;
+      case 'Expediente':
+        _openFeature(context, QuickFeature.academicRecord);
+        break;
+      case 'Pensum':
+        _openFeature(context, QuickFeature.pensum);
+        break;
+      case 'Asistencia':
+        _openFeature(context, QuickFeature.academicCalendar);
+        break;
+      case 'Horario':
+        _openFeature(context, QuickFeature.schedule);
+        break;
+      case 'Eval. Docente':
+        _openFeature(context, QuickFeature.news);
+        break;
+      case 'Carnet Digital':
+        Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder: (_) => const StudentCardPage(),
+          ),
+        );
+        break;
+      default:
+        return;
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // ── Dark green header ─────────────────────────────────────────────
+        // ── Green header ─────────────────────────────────────────────
         _AcademicHeader(onNotificationTap: () {}),
         // ── Scrollable body ───────────────────────────────────────────────
         Expanded(
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 118),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 118),
             children: [
               // Progress card
               const _AcademicProgressCard(),
-              const SizedBox(height: 24),
-              // Quick access
-              Row(
-                children: [
-                  const Text(
-                    'Accesos rápidos',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF173726),
-                    ),
-                  ),
-                  const Spacer(),
-                  _ViewAllButton(onTap: () {}),
-                ],
+              // Academic options grid
+              _AcademicOptionsGrid(
+                onTap: (option) => _openOption(context, option),
               ),
-              const SizedBox(height: 14),
-              _AcademicQuickGrid(
-                onTap: (feature) => _openFeature(context, feature),
-              ),
-              const SizedBox(height: 24),
-              // CTA Banner
-              const _NextTermBanner(),
-              const SizedBox(height: 20),
-              // Detailed academic blocks (score, pensum, etc.)
-              const _AcademicBlocks(),
             ],
           ),
         ),
@@ -51,7 +67,7 @@ class AcademicPage extends StatelessWidget {
   }
 }
 
-// ─── Academic Dark Header ──────────────────────────────────────────────────────
+// ─── Academic Header ──────────────────────────────────────────────────────
 class _AcademicHeader extends StatelessWidget {
   const _AcademicHeader({required this.onNotificationTap});
 
@@ -61,163 +77,35 @@ class _AcademicHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF082418), Color(0xFF0E5A38), Color(0xFF156B42)],
+          colors: [Color(0xFF0E5A38), Color(0xFF1B7A4B)],
         ),
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title row
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Text(
-                'Académico',
-                style: TextStyle(
-                  fontFamily: 'Inter',
-                  fontSize: 28,
-                  fontWeight: FontWeight.w900,
-                  color: Colors.white,
-                  letterSpacing: -0.5,
-                ),
-              ),
-              const Spacer(),
-              Stack(
-                clipBehavior: Clip.none,
-                children: [
-                  IconButton(
-                    onPressed: onNotificationTap,
-                    icon: const Icon(Icons.notifications_outlined),
-                    color: Colors.white,
-                    iconSize: 26,
-                  ),
-                  Positioned(
-                    right: 8,
-                    top: 8,
-                    child: Container(
-                      width: 18,
-                      height: 18,
-                      decoration: const BoxDecoration(
-                        color: Color(0xFF4ADE80),
-                        shape: BoxShape.circle,
-                      ),
-                      alignment: Alignment.center,
-                      child: const Text(
-                        '3',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 10,
-                          fontWeight: FontWeight.w800,
-                          color: Color(0xFF082418),
-                        ),
-                      ),
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          const Text(
+            'Académico',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
           ),
-          const SizedBox(height: 16),
-          // Student info row
-          Row(
-            children: [
-              // Avatar
-              Container(
-                width: 60,
-                height: 60,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  border: Border.all(
-                    color: const Color(0xFF4ADE80),
-                    width: 2.5,
-                  ),
-                  gradient: const LinearGradient(
-                    colors: [Color(0xFF1B7A4B), Color(0xFF0E5A38)],
-                  ),
-                ),
-                child: const CircleAvatar(
-                  backgroundColor: Colors.transparent,
-                  child: Text(
-                    'B',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 24,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: 14),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      '¡Hola, Berny!',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 17,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 2),
-                    const Text(
-                      'Ing. en Software',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 13,
-                        color: Color(0xFFB0D4BC),
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Container(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 10,
-                        vertical: 4,
-                      ),
-                      decoration: BoxDecoration(
-                        color: Colors.white.withValues(alpha: 0.15),
-                        borderRadius: BorderRadius.circular(999),
-                      ),
-                      child: const Text(
-                        '6to Cuatrimestre',
-                        style: TextStyle(
-                          fontFamily: 'Inter',
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Colors.white,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              // UNAD logo badge
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.12),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.25),
-                  ),
-                ),
-                child: const Icon(
-                  Icons.school_outlined,
-                  color: Colors.white,
-                  size: 26,
-                ),
-              ),
-            ],
+          const SizedBox(height: 4),
+          const Text(
+            '5to Semestre • Ingeniería de Software',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
           ),
         ],
       ),
@@ -232,105 +120,66 @@ class _AcademicProgressCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
+      margin: const EdgeInsets.fromLTRB(20, 16, 20, 16),
       padding: const EdgeInsets.all(20),
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(24),
-        boxShadow: const [
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
           BoxShadow(
-            color: Color(0x0F000000),
-            blurRadius: 16,
-            offset: Offset(0, 6),
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
           ),
         ],
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            'Tu progreso académico',
-            style: TextStyle(
-              fontFamily: 'Inter',
-              fontSize: 15,
-              fontWeight: FontWeight.w700,
-              color: Color(0xFF173726),
-            ),
-          ),
-          const SizedBox(height: 16),
           Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              // Circular progress
-              SizedBox(
-                width: 90,
-                height: 90,
-                child: Stack(
-                  fit: StackFit.expand,
-                  children: [
-                    CircularProgressIndicator(
-                      value: 0.68,
-                      strokeWidth: 9,
-                      backgroundColor: const Color(0xFFE8F4EC),
-                      valueColor: const AlwaysStoppedAnimation<Color>(
-                        Color(0xFF0E5A38),
-                      ),
-                      strokeCap: StrokeCap.round,
-                    ),
-                    const Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            '68%',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 18,
-                              fontWeight: FontWeight.w900,
-                              color: Color(0xFF0E5A38),
-                            ),
-                          ),
-                          Text(
-                            'Avance',
-                            style: TextStyle(
-                              fontFamily: 'Inter',
-                              fontSize: 9,
-                              color: Color(0xFF62716A),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
+              const Text(
+                'Progreso Académico',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w700,
+                  color: Color(0xFF173726),
                 ),
               ),
-              const SizedBox(width: 20),
-              // Stats
-              Expanded(
-                child: Column(
-                  children: [
-                    _ProgressStatRow(
-                      label: 'Créditos aprobados',
-                      value: '72',
-                      valueColor: const Color(0xFF0E5A38),
-                      showArrow: false,
-                    ),
-                    const SizedBox(height: 12),
-                    _ProgressStatRow(
-                      label: 'Índice acumulado',
-                      value: '3.72',
-                      valueColor: const Color(0xFFD97706),
-                      showArrow: true,
-                    ),
-                    const SizedBox(height: 12),
-                    _ProgressStatRow(
-                      label: 'Créditos pendientes',
-                      value: '18',
-                      valueColor: const Color(0xFFD97706),
-                      showArrow: false,
-                    ),
-                  ],
+              const Text(
+                'Créditos 78/180',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF62716A),
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 12),
+          ClipRRect(
+            borderRadius: BorderRadius.circular(8),
+            child: LinearProgressIndicator(
+              value: 0.43,
+              backgroundColor: const Color(0xFFE8F4EC),
+              valueColor: const AlwaysStoppedAnimation<Color>(
+                Color(0xFF0E5A38),
+              ),
+              minHeight: 8,
+            ),
+          ),
+          const SizedBox(height: 8),
+          const Text(
+            '43%',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF0E5A38),
+            ),
           ),
         ],
       ),
@@ -383,73 +232,66 @@ class _ProgressStatRow extends StatelessWidget {
   }
 }
 
-// ─── Academic Quick Grid ───────────────────────────────────────────────────────
-class _AcademicQuickGrid extends StatelessWidget {
-  const _AcademicQuickGrid({required this.onTap});
+// ─── Academic Options Grid ─────────────────────────────────────────────────────
+class _AcademicOptionsGrid extends StatelessWidget {
+  const _AcademicOptionsGrid({required this.onTap});
 
-  final ValueChanged<QuickFeature> onTap;
+  final ValueChanged<String> onTap;
 
-  static const _items = [
-    (
-      QuickFeature.subjectSelection,
-      'Selección de materias',
-      'Inscripción y cupos',
-    ),
-    (QuickFeature.schedule, 'Horario de clases', 'Consulta tu horario'),
-    (QuickFeature.academicRecord, 'Record académico', 'Notas e índices'),
-    (QuickFeature.pensum, 'Pensum', 'Mapa curricular'),
-    (QuickFeature.academicScore, 'Score académico', 'Tu rendimiento'),
-    (QuickFeature.news, 'Tareas y proyectos', 'Actividades académicas'),
-    (
-      QuickFeature.academicCalendar,
-      'Calendario académico',
-      'Fechas importantes',
-    ),
-    (QuickFeature.virtualLibrary, 'Biblioteca virtual', 'Libros y recursos'),
-    (QuickFeature.campusVirtual, 'Campus Virtual', 'Plataformas digitales'),
+  static const _options = [
+    ('Mis Materias', 'Cursos actuales', Icons.book_outlined, Color(0xFF0E5A38)),
+    ('Matrícula', 'Periodo abierto', Icons.edit_calendar_outlined, Color(0xFF2458A6)),
+    ('Calificaciones', 'Notas del semestre', Icons.grade_outlined, Color(0xFF7C3AED)),
+    ('Expediente', 'Historial académico', Icons.folder_open_outlined, Color(0xFFD97706)),
+    ('Pensum', 'Plan de estudio', Icons.map_outlined, Color(0xFF0E5A38)),
+    ('Asistencia', 'Registro de clases', Icons.check_circle_outline, Color(0xFF2458A6)),
+    ('Horario', 'Semana actual', Icons.schedule_outlined, Color(0xFF7C3AED)),
+    ('Eval. Docente', 'Encuesta profesores', Icons.rate_review_outlined, Color(0xFFD97706)),
+    ('Carnet Digital', 'Identificación QR', Icons.qr_code_2_outlined, Color(0xFF0E5A38)),
   ];
 
   @override
   Widget build(BuildContext context) {
-    return LayoutBuilder(
-      builder: (context, constraints) {
-        final cols = constraints.maxWidth >= 640 ? 4 : 3;
-        return GridView.builder(
-          shrinkWrap: true,
-          physics: const NeverScrollableScrollPhysics(),
-          itemCount: _items.length,
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: cols,
-            mainAxisSpacing: 12,
-            crossAxisSpacing: 12,
-            childAspectRatio: 0.85,
-          ),
-          itemBuilder: (context, i) {
-            final item = _items[i];
-            return _AcademicQuickCard(
-              feature: item.$1,
-              label: item.$2,
-              subtitle: item.$3,
-              onTap: () => onTap(item.$1),
-            );
-          },
-        );
-      },
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+      child: GridView.builder(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: _options.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 3,
+          mainAxisSpacing: 12,
+          crossAxisSpacing: 12,
+          childAspectRatio: 0.9,
+        ),
+        itemBuilder: (context, i) {
+          final option = _options[i];
+          return _AcademicOptionCard(
+            title: option.$1,
+            subtitle: option.$2,
+            icon: option.$3,
+            color: option.$4,
+            onTap: () => onTap(option.$1),
+          );
+        },
+      ),
     );
   }
 }
 
-class _AcademicQuickCard extends StatelessWidget {
-  const _AcademicQuickCard({
-    required this.feature,
-    required this.label,
+class _AcademicOptionCard extends StatelessWidget {
+  const _AcademicOptionCard({
+    required this.title,
     required this.subtitle,
+    required this.icon,
+    required this.color,
     required this.onTap,
   });
 
-  final QuickFeature feature;
-  final String label;
+  final String title;
   final String subtitle;
+  final IconData icon;
+  final Color color;
   final VoidCallback onTap;
 
   @override
@@ -457,59 +299,52 @@ class _AcademicQuickCard extends StatelessWidget {
     return Material(
       color: Colors.transparent,
       child: InkWell(
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.circular(16),
         onTap: onTap,
         child: Container(
-          padding: const EdgeInsets.all(12),
+          padding: const EdgeInsets.all(16),
           decoration: BoxDecoration(
             color: Colors.white,
-            borderRadius: BorderRadius.circular(20),
-            boxShadow: const [
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
               BoxShadow(
-                color: Color(0x0E000000),
+                color: Colors.black.withValues(alpha: 0.05),
                 blurRadius: 10,
-                offset: Offset(0, 4),
+                offset: const Offset(0, 2),
               ),
             ],
-            border: Border.all(color: const Color(0xFFF0F4F1), width: 1),
           ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Hero(
-                tag: 'feature_icon_${feature.name}',
-                child: Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: const Color(0xFFE8F4EC),
-                    borderRadius: BorderRadius.circular(14),
-                  ),
-                  child: Icon(
-                    feature.icon,
-                    color: const Color(0xFF0E5A38),
-                    size: 22,
-                  ),
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: color.withValues(alpha: 0.1),
+                  borderRadius: BorderRadius.circular(12),
                 ),
+                child: Icon(icon, color: color, size: 24),
               ),
               const Spacer(),
               Text(
-                label,
+                title,
                 style: const TextStyle(
                   fontFamily: 'Inter',
-                  fontSize: 12,
+                  fontSize: 13,
                   fontWeight: FontWeight.w700,
                   color: Color(0xFF173726),
                 ),
-                maxLines: 2,
+                maxLines: 1,
                 overflow: TextOverflow.ellipsis,
               ),
-              const SizedBox(height: 3),
+              const SizedBox(height: 2),
               Text(
                 subtitle,
                 style: const TextStyle(
                   fontFamily: 'Inter',
                   fontSize: 10,
+                  fontWeight: FontWeight.w500,
                   color: Color(0xFF62716A),
                 ),
                 maxLines: 1,

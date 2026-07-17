@@ -1,4 +1,4 @@
-import 'dart:ui';
+﻿import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'theme.dart';
 import 'models/virtual_classroom_models.dart';
@@ -8,6 +8,7 @@ part 'screens/student/dashboard_page.dart';
 part 'screens/student/academic_page.dart';
 part 'screens/student/payments_page.dart';
 part 'screens/student/notifications_page.dart';
+part 'screens/student/student_card_page.dart';
 part 'screens/student/profile_page.dart';
 part 'screens/student/feature_detail_page.dart';
 part 'screens/student/virtual_classroom_page.dart';
@@ -167,7 +168,6 @@ class _AppShellState extends State<AppShell> {
     DashboardPage(),
     AcademicPage(),
     PaymentsPage(),
-    NotificationsPage(),
     ProfilePage(),
   ];
 
@@ -207,14 +207,9 @@ class _AppShellState extends State<AppShell> {
                 label: 'Académico',
               ),
               NavigationDestination(
-                icon: Icon(Icons.payments_outlined),
-                selectedIcon: Icon(Icons.payments),
-                label: 'Pagos',
-              ),
-              NavigationDestination(
-                icon: Icon(Icons.notifications_none_outlined),
-                selectedIcon: Icon(Icons.notifications),
-                label: 'Notificaciones',
+                icon: Icon(Icons.account_balance_wallet_outlined),
+                selectedIcon: Icon(Icons.account_balance_wallet),
+                label: 'Finanzas',
               ),
               NavigationDestination(
                 icon: Icon(Icons.person_outline),
@@ -292,49 +287,610 @@ class _TopAppBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      child: Row(
+    return Container(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 20),
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFF0E5A38), Color(0xFF1B7A4B)],
+        ),
+      ),
+      child: Column(
         children: [
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.menu_rounded),
-            color: const Color(0xFF173726),
-            iconSize: 26,
-          ),
-          const Spacer(),
-          RichText(
-            text: const TextSpan(
-              children: [
-                TextSpan(
-                  text: 'MiUNAD',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 22,
-                    fontWeight: FontWeight.w900,
-                    color: Color(0xFF0E5A38),
-                    letterSpacing: -0.5,
+          Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Text(
+                      '¡Bienvenida!',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    ),
+                    const SizedBox(height: 4),
+                    const Text(
+                      'Ana María',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 22,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              const SizedBox(width: 16),
+              Container(
+                width: 48,
+                height: 48,
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(24),
+                ),
+                child: const Center(
+                  child: Text(
+                    'AM',
+                    style: TextStyle(
+                      fontFamily: 'Inter',
+                      fontSize: 16,
+                      fontWeight: FontWeight.w700,
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-                TextSpan(
-                  text: '.',
+              ),
+              const SizedBox(width: 12),
+              Stack(
+                children: [
+                  IconButton(
+                    onPressed: () {},
+                    icon: const Icon(Icons.notifications_outlined),
+                    color: Colors.white,
+                    iconSize: 24,
+                  ),
+                  Positioned(
+                    right: 8,
+                    top: 8,
+                    child: Container(
+                      padding: const EdgeInsets.all(4),
+                      decoration: const BoxDecoration(
+                        color: Color(0xFFE53935),
+                        shape: BoxShape.circle,
+                      ),
+                      child: const Text(
+                        '2',
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 10,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+              IconButton(
+                onPressed: () {},
+                icon: const Icon(Icons.chat_outlined),
+                color: Colors.white,
+                iconSize: 24,
+              ),
+            ],
+          ),
+          const SizedBox(height: 12),
+          // Virtual Classroom Button
+          Material(
+            color: Colors.transparent,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute<void>(
+                    builder: (_) => const VirtualClassroomPage(),
+                  ),
+                );
+              },
+              borderRadius: BorderRadius.circular(12),
+              child: Container(
+                padding: const EdgeInsets.symmetric(vertical: 12),
+                decoration: BoxDecoration(
+                  color: Colors.white.withValues(alpha: 0.15),
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(
+                    color: Colors.white.withValues(alpha: 0.3),
+                  ),
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.class_outlined,
+                      color: Colors.white,
+                      size: 20,
+                    ),
+                    SizedBox(width: 8),
+                    Text(
+                      'Aula Virtual',
+                      style: TextStyle(
+                        fontFamily: 'Inter',
+                        fontSize: 14,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white,
+                      ),
+                    ),
+                    SizedBox(width: 4),
+                    Icon(
+                      Icons.arrow_forward_ios_rounded,
+                      color: Colors.white,
+                      size: 14,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Dashboard Summary Cards ─────────────────────────────────────────────────────
+class _DashboardSummary extends StatelessWidget {
+  const _DashboardSummary();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+      child: Row(
+        children: [
+          Expanded(
+            child: _SummaryCard(
+              icon: Icons.grade_outlined,
+              value: '3.72',
+              label: 'Índice GPA',
+              color: const Color(0xFF0E5A38),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: _SummaryCard(
+              icon: Icons.school_outlined,
+              value: '5to Sem.',
+              label: 'Semestre actual',
+              color: const Color(0xFF2458A6),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _SummaryCard extends StatelessWidget {
+  const _SummaryCard({
+    required this.icon,
+    required this.value,
+    required this.label,
+    required this.color,
+  });
+
+  final IconData icon;
+  final String value;
+  final String label;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(8),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(icon, color: color, size: 20),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  value,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 16,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF173726),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  label,
                   style: TextStyle(
                     fontFamily: 'Inter',
-                    fontSize: 26,
-                    fontWeight: FontWeight.w900,
-                    color: Color(0xFF4ADE80),
-                    letterSpacing: -0.5,
+                    fontSize: 11,
+                    fontWeight: FontWeight.w500,
+                    color: const Color(0xFF62716A),
                   ),
                 ),
               ],
             ),
           ),
-          const Spacer(),
-          IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.search_rounded),
-            color: const Color(0xFF173726),
-            iconSize: 26,
+        ],
+      ),
+    );
+  }
+}
+
+class _DashboardSummaryRow extends StatelessWidget {
+  const _DashboardSummaryRow();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+      child: Row(
+        children: [
+          Expanded(
+            child: _SummaryCard(
+              icon: Icons.check_circle_outlined,
+              value: '78',
+              label: 'Créditos aprob.',
+              color: const Color(0xFF1B7A4B),
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: _SummaryCard(
+              icon: Icons.account_balance_wallet_outlined,
+              value: 'RD\$4,8...',
+              label: 'Saldo pendiente',
+              color: const Color(0xFFC03A2B),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Next Delivery Card ───────────────────────────────────────────────────────
+class _NextDeliveryCard extends StatelessWidget {
+  const _NextDeliveryCard();
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFF59E0B), Color(0xFFD97706)],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFF59E0B).withValues(alpha: 0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+            decoration: BoxDecoration(
+              color: Colors.white.withValues(alpha: 0.2),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: const Text(
+              'PRÓXIMA ENTREGA - 2 DÍAS',
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 11,
+                fontWeight: FontWeight.w700,
+                color: Colors.white,
+                letterSpacing: 0.5,
+              ),
+            ),
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'Proyecto Final IS-401',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 18,
+              fontWeight: FontWeight.w700,
+              color: Colors.white,
+            ),
+          ),
+          const SizedBox(height: 4),
+          const Text(
+            'Ingeniería de Software II',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Feature Navigation Buttons ─────────────────────────────────────────────────
+class _FeatureNavigation extends StatelessWidget {
+  const _FeatureNavigation();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+      child: Row(
+        children: [
+          Expanded(
+            child: _FeatureButton(
+              label: 'Universidad',
+              icon: Icons.school_outlined,
+              onTap: () {
+                // Navigate to feature detail page
+                _openFeature(context, QuickFeature.campusVirtual);
+              },
+            ),
+          ),
+          const SizedBox(width: 12),
+          Expanded(
+            child: _FeatureButton(
+              label: 'Mi Carrera',
+              icon: Icons.work_outline,
+              onTap: () {
+                // Navigate to academic page
+                _openFeature(context, QuickFeature.academicRecord);
+              },
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _FeatureButton extends StatelessWidget {
+  const _FeatureButton({
+    required this.label,
+    required this.icon,
+    required this.onTap,
+  });
+
+  final String label;
+  final IconData icon;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) {
+    return Material(
+      color: Colors.transparent,
+      child: InkWell(
+        onTap: onTap,
+        borderRadius: BorderRadius.circular(16),
+        child: Container(
+          padding: const EdgeInsets.symmetric(vertical: 16),
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [Color(0xFF0E5A38), Color(0xFF1B7A4B)],
+            ),
+            borderRadius: BorderRadius.circular(16),
+            boxShadow: [
+              BoxShadow(
+                color: const Color(0xFF0E5A38).withValues(alpha: 0.3),
+                blurRadius: 12,
+                offset: const Offset(0, 4),
+              ),
+            ],
+          ),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Icon(icon, color: Colors.white, size: 20),
+              const SizedBox(width: 8),
+              Text(
+                label,
+                style: const TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 15,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+// ─── Pinned Cards Section ───────────────────────────────────────────────────────
+class _PinnedCardsSection extends StatelessWidget {
+  const _PinnedCardsSection();
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 12),
+          child: Row(
+            children: [
+              Icon(Icons.push_pin_outlined, size: 18, color: Color(0xFF62716A)),
+              SizedBox(width: 8),
+              Text(
+                'Fijado',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Color(0xFF62716A),
+                ),
+              ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 8),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+          child: Column(
+            children: [
+              _PinnedCard(
+                category: 'Institucional',
+                title: 'Semana de Oración 2025',
+                subtitle: '17 - 21 Marzo',
+                date: '15 Mar',
+                color: const Color(0xFF2458A6),
+              ),
+              const SizedBox(height: 12),
+              _PinnedCard(
+                category: 'Académico',
+                title: 'Período de Exámenes Finales',
+                subtitle: '5to semestre · 7 - 18 Abril 2025',
+                date: '12 Mar',
+                color: const Color(0xFF0E5A38),
+              ),
+            ],
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _PinnedCard extends StatelessWidget {
+  const _PinnedCard({
+    required this.category,
+    required this.title,
+    required this.subtitle,
+    required this.date,
+    required this.color,
+  });
+
+  final String category;
+  final String title;
+  final String subtitle;
+  final String date;
+  final Color color;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.circular(16),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withValues(alpha: 0.05),
+            blurRadius: 10,
+            offset: const Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Row(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(12),
+            decoration: BoxDecoration(
+              color: color.withValues(alpha: 0.1),
+              borderRadius: BorderRadius.circular(12),
+            ),
+            child: Icon(Icons.event_outlined, color: color, size: 24),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  category,
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: color,
+                    letterSpacing: 0.5,
+                  ),
+                ),
+                const SizedBox(height: 4),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 15,
+                    fontWeight: FontWeight.w700,
+                    color: Color(0xFF173726),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF62716A),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          const SizedBox(width: 12),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+            decoration: BoxDecoration(
+              color: const Color(0xFFF4F1EB),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              date,
+              style: const TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: Color(0xFF62716A),
+              ),
+            ),
           ),
         ],
       ),
@@ -3520,3 +4076,4 @@ void _openFeature(BuildContext context, QuickFeature feature) {
 }
 
 void nullAction() {}
+

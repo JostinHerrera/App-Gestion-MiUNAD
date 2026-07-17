@@ -8,73 +8,36 @@ class PaymentsPage extends StatefulWidget {
 }
 
 class _PaymentsPageState extends State<PaymentsPage> {
+  void _handlePayNow() {
+    // Navigate to payment page or show payment dialog
+    _openFeature(context, QuickFeature.tuition);
+  }
+
+  void _handleViewReceipts() {
+    // Navigate to receipts page or show receipts dialog
+    _openFeature(context, QuickFeature.accountStatement);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Column(
       children: [
-        // ── Dark green header ─────────────────────────────────────────────
+        // ── Green header ─────────────────────────────────────────────
         const _PaymentsHeader(),
         // ── Scrollable body ───────────────────────────────────────────────
         Expanded(
           child: ListView(
-            padding: const EdgeInsets.fromLTRB(20, 20, 20, 118),
+            padding: const EdgeInsets.fromLTRB(0, 0, 0, 118),
             children: [
-              // "Mis pagos" section
-              Row(
-                children: [
-                  const Text(
-                    'Mis pagos',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF173726),
-                    ),
-                  ),
-                  const Spacer(),
-                  GestureDetector(
-                    onTap: () =>
-                        _openFeature(context, QuickFeature.accountStatement),
-                    child: const Text(
-                      'Ver todos',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 14,
-                        fontWeight: FontWeight.w600,
-                        color: Color(0xFF0E5A38),
-                      ),
-                    ),
-                  ),
-                ],
+              // Pending balance card
+              _PendingBalanceCard(
+                onPayNow: _handlePayNow,
+                onViewReceipts: _handleViewReceipts,
               ),
-              const SizedBox(height: 14),
-              // Payment cards row
-              const _PaymentCardsRow(),
-              const SizedBox(height: 24),
-              // Quick access
-              Row(
-                children: [
-                  const Text(
-                    'Accesos rápidos',
-                    style: TextStyle(
-                      fontFamily: 'Inter',
-                      fontSize: 18,
-                      fontWeight: FontWeight.w800,
-                      color: Color(0xFF173726),
-                    ),
-                  ),
-                  const Spacer(),
-                  _ViewAllButton(onTap: () {}),
-                ],
-              ),
-              const SizedBox(height: 14),
-              const _PaymentsQuickRow(),
-              const SizedBox(height: 24),
-              // Financial summary
-              const _FinancialSummaryCard(),
-              const SizedBox(height: 20),
-              // Detailed blocks
-              const _PaymentsBlocks(),
+              // Semester breakdown
+              const _SemesterBreakdown(),
+              // Payments per month chart
+              const _PaymentsPerMonthChart(),
             ],
           ),
         ),
@@ -83,7 +46,7 @@ class _PaymentsPageState extends State<PaymentsPage> {
   }
 }
 
-// ─── Payments Dark Header ──────────────────────────────────────────────────────
+// ─── Payments Header ──────────────────────────────────────────────────────
 class _PaymentsHeader extends StatelessWidget {
   const _PaymentsHeader();
 
@@ -91,165 +54,169 @@ class _PaymentsHeader extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.fromLTRB(20, 16, 20, 24),
+      padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
       decoration: const BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
-          colors: [Color(0xFF082418), Color(0xFF0E5A38), Color(0xFF156B42)],
+          colors: [Color(0xFF0E5A38), Color(0xFF1B7A4B)],
         ),
-        borderRadius: BorderRadius.vertical(bottom: Radius.circular(32)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Title row
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      'Pagos',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 28,
-                        fontWeight: FontWeight.w900,
-                        color: Colors.white,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    SizedBox(height: 3),
-                    Text(
-                      'Gestiona tus pagos y finanzas',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 14,
-                        color: Color(0xFFB0D4BC),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Container(
-                width: 52,
-                height: 52,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.12),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.25),
-                  ),
-                ),
-                child: const Icon(
-                  Icons.account_balance_wallet_outlined,
-                  color: Colors.white,
-                  size: 26,
-                ),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
-          // Balance content directly in header (no inner container)
           const Text(
-            'Balance actual',
+            'Finanzas',
             style: TextStyle(
               fontFamily: 'Inter',
-              fontSize: 13,
-              color: Color(0xFFB0D4BC),
-              fontWeight: FontWeight.w500,
+              fontSize: 28,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
             ),
           ),
-          const SizedBox(height: 6),
+          const SizedBox(height: 4),
+          const Text(
+            'Estado de cuenta • 2025-I',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w500,
+              color: Colors.white,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Pending Balance Card ─────────────────────────────────────────────────────
+class _PendingBalanceCard extends StatelessWidget {
+  const _PendingBalanceCard({
+    required this.onPayNow,
+    required this.onViewReceipts,
+  });
+
+  final VoidCallback onPayNow;
+  final VoidCallback onViewReceipts;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      margin: const EdgeInsets.fromLTRB(20, 16, 20, 16),
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [Color(0xFFF97316), Color(0xFFEA580C)],
+        ),
+        borderRadius: BorderRadius.circular(20),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFF97316).withValues(alpha: 0.3),
+            blurRadius: 15,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
           Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Expanded(
-                child: Text(
-                  'RD\$ 12,450.00',
-                  style: TextStyle(
-                    fontFamily: 'Inter',
-                    fontSize: 30,
-                    fontWeight: FontWeight.w900,
-                    color: Colors.white,
-                    letterSpacing: -1.0,
-                  ),
+              const Text(
+                'Saldo Pendiente',
+                style: TextStyle(
+                  fontFamily: 'Inter',
+                  fontSize: 14,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
                 ),
               ),
               Container(
-                padding: const EdgeInsets.all(10),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.15),
-                  borderRadius: BorderRadius.circular(14),
+                  color: Colors.white.withValues(alpha: 0.2),
+                  borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Icon(
-                  Icons.account_balance_wallet_rounded,
-                  color: Colors.white,
-                  size: 26,
+                child: const Text(
+                  '17 días vencido',
+                  style: TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 11,
+                    fontWeight: FontWeight.w600,
+                    color: Colors.white,
+                  ),
                 ),
               ),
             ],
+          ),
+          const SizedBox(height: 12),
+          const Text(
+            'RD\$ 2400',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 32,
+              fontWeight: FontWeight.w800,
+              color: Colors.white,
+            ),
           ),
           const SizedBox(height: 16),
           Row(
             children: [
               Expanded(
-                child: GestureDetector(
-                  onTap: () =>
-                      _openFeature(context, QuickFeature.accountStatement),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.10),
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: Colors.white.withValues(alpha: 0.20),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onPayNow,
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(12),
                       ),
-                    ),
-                    alignment: Alignment.center,
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.description_outlined,
-                          color: Colors.white,
-                          size: 16,
+                      child: const Text(
+                        'Pagar Ahora',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: Color(0xFFF97316),
                         ),
-                        SizedBox(width: 6),
-                        Text(
-                          'Ver estado de cuenta',
-                          style: TextStyle(
-                            fontFamily: 'Inter',
-                            fontSize: 13,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.white,
-                          ),
-                        ),
-                      ],
+                      ),
                     ),
                   ),
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 12),
               Expanded(
-                child: GestureDetector(
-                  onTap: () => _openFeature(context, QuickFeature.tuition),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    alignment: Alignment.center,
-                    child: const Text(
-                      'Pagar ahora',
-                      style: TextStyle(
-                        fontFamily: 'Inter',
-                        fontSize: 13,
-                        fontWeight: FontWeight.w700,
-                        color: Color(0xFF0E5A38),
+                child: Material(
+                  color: Colors.transparent,
+                  child: InkWell(
+                    onTap: onViewReceipts,
+                    borderRadius: BorderRadius.circular(12),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: Colors.white.withValues(alpha: 0.2),
+                        borderRadius: BorderRadius.circular(12),
+                        border: Border.all(
+                          color: Colors.white.withValues(alpha: 0.3),
+                        ),
+                      ),
+                      child: const Text(
+                        'Ver Recibos',
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontFamily: 'Inter',
+                          fontSize: 14,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
                       ),
                     ),
                   ),
@@ -259,6 +226,248 @@ class _PaymentsHeader extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+// ─── Semester Breakdown Section ───────────────────────────────────────────────
+class _SemesterBreakdown extends StatelessWidget {
+  const _SemesterBreakdown();
+
+  static const _items = [
+    ('Matrícula', 'RD\$ 3500', 'Pagado', true),
+    ('Créditos (16 cr. x RD\$400)', 'RD\$ 6400', 'Pagado', true),
+    ('Laboratorio Informática', 'RD\$ 800', 'Pagado', true),
+    ('Servicios Estudiantiles', 'RD\$ 350', 'Pagado', true),
+    ('Cuotas mensuales', 'RD\$ 2400', 'Pendiente', false),
+  ];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 12),
+          child: Text(
+            'DESGLOSE DEL SEMESTRE',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF62716A),
+              letterSpacing: 1,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+          child: Container(
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: Column(
+              children: [
+                for (int i = 0; i < _items.length; i++) ...[
+                  _BreakdownItem(
+                    label: _items[i].$1,
+                    amount: _items[i].$2,
+                    status: _items[i].$3,
+                    isPaid: _items[i].$4,
+                  ),
+                  if (i < _items.length - 1)
+                    const Divider(
+                      color: Color(0xFFF0F4F1),
+                      height: 1,
+                      thickness: 1,
+                    ),
+                ],
+              ],
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _BreakdownItem extends StatelessWidget {
+  const _BreakdownItem({
+    required this.label,
+    required this.amount,
+    required this.status,
+    required this.isPaid,
+  });
+
+  final String label;
+  final String amount;
+  final String status;
+  final bool isPaid;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(16),
+      child: Row(
+        children: [
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  label,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 14,
+                    fontWeight: FontWeight.w600,
+                    color: Color(0xFF173726),
+                  ),
+                ),
+                const SizedBox(height: 2),
+                Text(
+                  amount,
+                  style: const TextStyle(
+                    fontFamily: 'Inter',
+                    fontSize: 13,
+                    fontWeight: FontWeight.w500,
+                    color: Color(0xFF62716A),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
+            decoration: BoxDecoration(
+              color: isPaid
+                  ? const Color(0xFFE7F5EC)
+                  : const Color(0xFFFEE2E2),
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Text(
+              status,
+              style: TextStyle(
+                fontFamily: 'Inter',
+                fontSize: 11,
+                fontWeight: FontWeight.w600,
+                color: isPaid
+                    ? const Color(0xFF0E5A38)
+                    : const Color(0xFFDC2626),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// ─── Payments Per Month Chart ─────────────────────────────────────────────────
+class _PaymentsPerMonthChart extends StatelessWidget {
+  const _PaymentsPerMonthChart();
+
+  static const _months = ['Oct', 'Nov', 'Dec', 'Ene', 'Feb', 'Mar'];
+  static const _values = [0.4, 0.6, 0.2, 1.0, 0.7, 0.3];
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        const Padding(
+          padding: EdgeInsets.fromLTRB(20, 0, 20, 12),
+          child: Text(
+            'PAGOS POR MES',
+            style: TextStyle(
+              fontFamily: 'Inter',
+              fontSize: 14,
+              fontWeight: FontWeight.w700,
+              color: Color(0xFF62716A),
+              letterSpacing: 1,
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(20, 0, 20, 16),
+          child: Container(
+            padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.circular(16),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.05),
+                  blurRadius: 10,
+                  offset: const Offset(0, 2),
+                ),
+              ],
+            ),
+            child: SizedBox(
+              height: 120,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                crossAxisAlignment: CrossAxisAlignment.end,
+                children: [
+                  for (int i = 0; i < _months.length; i++)
+                    _MonthBar(
+                      month: _months[i],
+                      value: _values[i],
+                    ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _MonthBar extends StatelessWidget {
+  const _MonthBar({
+    required this.month,
+    required this.value,
+  });
+
+  final String month;
+  final double value;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          width: 24,
+          height: 80 * value,
+          decoration: BoxDecoration(
+            gradient: const LinearGradient(
+              begin: Alignment.bottomCenter,
+              end: Alignment.topCenter,
+              colors: [Color(0xFF0E5A38), Color(0xFF1B7A4B)],
+            ),
+            borderRadius: BorderRadius.circular(6),
+          ),
+        ),
+        const SizedBox(height: 8),
+        Text(
+          month,
+          style: const TextStyle(
+            fontFamily: 'Inter',
+            fontSize: 11,
+            fontWeight: FontWeight.w600,
+            color: Color(0xFF62716A),
+          ),
+        ),
+      ],
     );
   }
 }

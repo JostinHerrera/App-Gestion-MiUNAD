@@ -34,11 +34,12 @@ class _FeatureDetailPageState extends State<_FeatureDetailPage> {
   double _scoreProgress = 0.82;
 
   final List<_SelectableSubject> _availableSubjects = const [
-    _SelectableSubject('Programación II', 4, 'Lab 204', 'Lun 8:00'),
-    _SelectableSubject('Sistemas Operativos', 3, 'Lab 108', 'Mié 10:00'),
-    _SelectableSubject('Ingeniería de Software', 3, 'Aula 312', 'Vie 1:00'),
-    _SelectableSubject('Redes de Computadoras', 4, 'Lab 204', 'Mar 2:00'),
-    _SelectableSubject('Desarrollo Web', 2, 'Lab 301', 'Jue 11:00'),
+    _SelectableSubject('IS-501', 'Seguridad Informática', 'Dr. R. Familia', 'L-M-V 8-9am', 'A-204', 3, 'available', ''),
+    _SelectableSubject('IS-502', 'Inteligencia Artificial', 'Ing. L. Torres', 'M-J 10-11:30am', 'B-305', 3, 'available', ''),
+    _SelectableSubject('IS-503', 'Desarrollo Móvil', 'Ing. M. López', 'V 1-4pm', 'Lab-3', 3, 'full', ''),
+    _SelectableSubject('IS-504', 'Cloud Computing', 'Dr. P. Santos', 'L-M 3-4:30pm', 'B-201', 3, 'blocked', 'Requiere MIUNAD - Prototipo Demo - UNAD'),
+    _SelectableSubject('IS-505', 'Bases de Datos Avanzadas', 'Dra. A. Ruiz', 'M-J 2-3:30pm', 'Lab-2', 4, 'available', ''),
+    _SelectableSubject('IS-506', 'Redes de Computadoras', 'Ing. C. Méndez', 'L-M-V 9-10am', 'A-301', 4, 'available', ''),
   ];
 
   final List<_ChatMessage> _messages = [
@@ -1243,10 +1244,14 @@ class _ChatMessage {
 }
 
 class _SelectableSubject {
-  const _SelectableSubject(this.name, this.credits, this.room, this.time);
+  const _SelectableSubject(this.code, this.name, this.professor, this.time, this.room, this.credits, this.status, this.message);
 
+  final String code;
   final String name;
-  final int credits;
-  final String room;
+  final String professor;
   final String time;
+  final String room;
+  final int credits;
+  final String status;
+  final String message;
 }
